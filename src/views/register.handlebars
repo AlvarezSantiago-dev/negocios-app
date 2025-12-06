@@ -1,0 +1,23 @@
+<h1>Register</h1>
+
+<form class="register-form">
+  <label for="email">Email</label>
+  <input type="text" id="email" name="email" />
+
+  <label for="password">Password</label>
+  <input type="password" id="password" name="password" />
+
+  <input type="button" id="register" value="register" />
+</form>
+
+<script>
+  document.getElementById("register").addEventListener("click", async ()=>{
+  const data = { email:document.getElementById("email").value,
+  password:document.getElementById("password").value }; const opts = { method:
+  "POST", headers: { "Content-Type": "application/json" }, body:
+  JSON.stringify(data) }; try { let response = await
+  fetch("/api/sessions/register", opts); response = await response.json();
+  console.log("RESPONSE BACK:", response); if(response.statusCode===201){
+  location.replace("/login") } } catch (err) { console.error("Erroren fetch:",
+  err); } });
+</script>

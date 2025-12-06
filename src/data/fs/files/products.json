@@ -1,0 +1,41 @@
+[
+  {
+    "product_id": "d627dfe718368d81a2a6d814",
+    "title": "prueba2",
+    "photo": "url-fotodefault",
+    "stock": 1
+  },
+  {
+    "product_id": "90692792a340bbf3943b3013",
+    "title": "server",
+    "photo": "url-fotodefault",
+    "category": "zapatilla",
+    "stock": 1
+  },
+  {
+    "product_id": "b46a0f944a9a2be30809f7b6",
+    "title": "actualizado?3232",
+    "photo": "url-fotodefault",
+    "category": "to do",
+    "price": 500,
+    "stock": 1
+  },
+  {
+    "product_id": "38d9e2488a1b7134df1e768f",
+    "title": "nuevo desde postman",
+    "photo": "url-fotodefault",
+    "category": "zapatilla",
+    "price": 200,
+    "stock": 1
+  },
+  {
+    "_id": "d964c33e29c976ac3a3af005",
+    "title": "Nuevo en fs 17",
+    "category": "to do",
+    "price": 200,
+    "stock": 1,
+    "quantity": 1,
+    "createdAt": "2025-09-30T15:25:23.656Z",
+    "updatedAt": "2025-09-30T15:25:23.656Z"
+  }
+]

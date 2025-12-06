@@ -1,0 +1,244 @@
+// src/repositories/ventas.rep.js
+import dao from "../data/dao.factory.js";
+import VentaDTO from "../dto/ventas.dto.js";
+
+const { ventas, products: productos } = dao; // products viene de dao.factory.js
+
+class VentasRepository {
+  constructor(manager) {
+    this.model = manager;
+  }
+
+  // data: { items: [{ productoId, cantidad, precioVenta? }], metodoPago?, fecha? }
+  createRepository = async (data) => {
+    try {
+      const items = data.items;
+      if (!Array.isArray(items) || items.length === 0) {
+        throw new Error("La venta debe tener al menos un producto.");
+      }
+
+      let totalVenta = 0;
+      let gananciaTotal = 0;
+      const procesados = [];
+
+      for (const it of items) {
+        const producto = await productos.readOne(it.productoId);
+        if (!producto) throw new Error("Producto no encontrado.");
+
+        // precio compra unitario
+        let precioCompraUnit = producto.precioCompra ?? 0;
+
+        if (
+          producto.tipo === "pack" &&
+          producto.precioCompraPack &&
+          producto.unidadPorPack > 0
+        ) {
+          precioCompraUnit = producto.precioCompraPack / producto.unidadPorPack;
+        }
+
+        // precio venta unitario
+        const precioVentaUnit =
+          typeof it.precioVenta === "number"
+            ? it.precioVenta
+            : producto.precioVenta ?? 0;
+
+        const cantidad = Number(it.cantidad);
+        if (!Number.isFinite(cantidad) || cantidad <= 0) {
+          throw new Error("Cantidad inválida para un producto.");
+        }
+
+        // verificar stock
+        if (producto.stock < cantidad) {
+          throw new Error(
+            `Stock insuficiente para ${producto.nombre}. Disponible: ${producto.stock}`
+          );
+        }
+
+        // descontar stock (actualiza producto)
+        await productos.update(producto._id, {
+          stock: producto.stock - cantidad,
+        });
+
+        // cálculos
+        const subtotal = precioVentaUnit * cantidad;
+        const ganancia = (precioVentaUnit - precioCompraUnit) * cantidad;
+
+        totalVenta += subtotal;
+        gananciaTotal += ganancia;
+
+        procesados.push({
+          productoId: producto._id,
+          cantidad,
+          precioCompra: precioCompraUnit,
+          precioVenta: precioVentaUnit,
+          subtotal,
+        });
+      }
+
+      // Forzar guardar fecha en zona horaria Argentina (evita desajustes UTC)
+      const fechaAR = new Date(
+        new Date().toLocaleString("en-US", {
+          timeZone: "America/Argentina/Buenos_Aires",
+        })
+      );
+
+      const ventaDTO = new VentaDTO({
+        items: procesados,
+        metodoPago: data.metodoPago || "efectivo",
+        totalVenta,
+        gananciaTotal,
+        fecha: data.fecha ? new Date(data.fecha) : fechaAR,
+      });
+
+      // crear venta
+      return await this.model.create(ventaDTO);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  // 📌 Ventas del día
+  ventasDiarias = async (fechaISO) => {
+    // fechaISO: 'YYYY-MM-DD'
+    const inicioAR = new Date(`${fechaISO}T00:00:00-03:00`);
+    const finAR = new Date(`${fechaISO}T23:59:59.999-03:00`);
+
+    // Devolver objetos simples con .lean()
+    return await this.model.Model.find({
+      fecha: { $gte: inicioAR, $lte: finAR },
+    }).lean();
+  };
+
+  // 📌 Ventas del mes
+  ventasMensuales = async (year, month) => {
+    // month: 1..12
+    const inicioAR = new Date(
+      `${year}-${String(month).padStart(2, "0")}-01T00:00:00-03:00`
+    );
+
+    const ultimoDia = new Date(year, month, 0).getDate();
+    const finAR = new Date(
+      `${year}-${String(month).padStart(
+        2,
+        "0"
+      )}-${ultimoDia}T23:59:59.999-03:00`
+    );
+
+    return await this.model.Model.find({
+      fecha: { $gte: inicioAR, $lte: finAR },
+    }).lean();
+  };
+
+  // 📌 Ganancias: día o mes depende de filtros
+  ganancias = async ({ year, month, day }) => {
+    let inicioAR, finAR;
+
+    if (day) {
+      inicioAR = new Date(
+        `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(
+          2,
+          "0"
+        )}T00:00:00-03:00`
+      );
+      finAR = new Date(
+        `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(
+          2,
+          "0"
+        )}T23:59:59.999-03:00`
+      );
+    } else {
+      inicioAR = new Date(
+        `${year}-${String(month).padStart(2, "0")}-01T00:00:00-03:00`
+      );
+      const ultimoDia = new Date(year, month, 0).getDate();
+      finAR = new Date(
+        `${year}-${String(month).padStart(2, "0")}-${String(ultimoDia).padStart(
+          2,
+          "0"
+        )}T23:59:59.999-03:00`
+      );
+    }
+
+    // Retornar agregación con totales
+    const inicioUTC = inicioAR;
+    const finUTC = finAR;
+
+    const agg = await this.model.Model.aggregate([
+      { $match: { fecha: { $gte: inicioUTC, $lte: finUTC } } },
+      {
+        $group: {
+          _id: null,
+          totalGanado: { $sum: "$gananciaTotal" },
+          totalVendido: { $sum: "$totalVenta" },
+          cantidadVentas: { $sum: 1 },
+        },
+      },
+    ]);
+
+    return agg; // array (puede estar vacío) -> controller toma agg[0] || {}
+  };
+
+  // ventas.repository.js
+  ultimos7Dias = async () => {
+    const hoy = new Date();
+    const hace7 = new Date();
+    hace7.setDate(hoy.getDate() - 6); // incluye hoy
+
+    const inicio = new Date(
+      hace7.toLocaleString("en-US", {
+        timeZone: "America/Argentina/Buenos_Aires",
+      })
+    );
+    const fin = new Date(
+      hoy.toLocaleString("en-US", {
+        timeZone: "America/Argentina/Buenos_Aires",
+      })
+    );
+
+    return await this.model.Model.find({
+      fecha: { $gte: inicio, $lte: fin },
+    }).lean();
+  };
+  readRepository = async () => {
+    try {
+      return await this.model.read();
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  readOneRepository = async (_id) => {
+    try {
+      return await this.model.readOne(_id);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  updateRepository = async (_id, data) => {
+    try {
+      return await this.model.update(_id, data);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  destroyRepository = async (id) => {
+    try {
+      return await this.model.destroy(id);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  paginateRepository = async ({ filter = {}, options = {} }) => {
+    try {
+      return await this.model.paginate({ filter, options });
+    } catch (error) {
+      throw error;
+    }
+  };
+}
+
+const ventasRepository = new VentasRepository(ventas);
+export default ventasRepository;

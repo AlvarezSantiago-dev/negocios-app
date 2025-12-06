@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: educplataform-service
+spec:
+  selector:
+    app: educplataform
+  ports:
+    - port: 80
+      targetPort: 8080
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: educplataform-deploy
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: educplataform
+  template:
+    metadata:
+      labels:
+        app: educplataform
+    spec:
+      containers:
+        - name: educplataform
+          image: santyalvarezz/educplataform
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always

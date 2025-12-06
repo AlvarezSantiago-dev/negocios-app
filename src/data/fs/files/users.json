@@ -1,0 +1,78 @@
+[
+  {
+    "user_id": "10e8150007a64af8af3519cb",
+    "photo": "url de la foto default",
+    "email": "useremail-depostman@gmail.com",
+    "password": "nueva contrasena",
+    "role": "user"
+  },
+  {
+    "user_id": "c5edf30fa5319269a9c6eb4a",
+    "photo": "foto corregidax2",
+    "email": "useremail-depostman@gmail.com",
+    "password": "nueva contrasena",
+    "role": "user"
+  },
+  {
+    "user_id": "d271adb4f8db8c192643cdb1",
+    "photo": "url de la foto default",
+    "email": "useremail-depostman@gmail.com",
+    "password": "nueva contrasena",
+    "role": "user"
+  },
+  {
+    "id": "09b7d5b81367da4ff5a26f44",
+    "email": "florencia@gmail.com",
+    "password": "$2b$10$YkHqC8CTUoUWb6vMXVZ2k.6CWEsOXK1kwkxIQsT2OLLV7znyBASX6",
+    "role": "user",
+    "name": null
+  },
+  {
+    "_id": "92b0777a77c65967c220f4df",
+    "email": "florencia@gmail.com",
+    "password": "$2b$10$w0cUYBjO.NNIO7Zd0K5AWuFlIrJeBQGmFpleG3LLd6TNKsfGU64iC",
+    "role": 0,
+    "createdAt": "2025-09-24T15:02:27.521Z",
+    "updatedAt": "2025-09-24T15:02:27.521Z"
+  },
+  {
+    "_id": "3f672bbfb41348aeb9779a05",
+    "email": "florencia@gmail.com",
+    "password": "$2b$10$g05XDXkkRTfjI8TD1xwNZujGskRxgEEpq8qBVqarg01hsatsKP9YS",
+    "role": 0,
+    "createdAt": "2025-09-25T11:42:25.673Z",
+    "updatedAt": "2025-09-25T11:42:25.673Z"
+  },
+  {
+    "_id": "e7a076c2855cce63cff37511",
+    "email": "valentin22@gmail.com",
+    "password": "$2b$10$9fgAi4eB7ZCuMkybu6V1zetbQrnEmT7PGUfgDfaJ8KqF5Tp4MgCj6",
+    "role": 0,
+    "createdAt": "2025-09-30T13:08:48.790Z",
+    "updatedAt": "2025-09-30T13:08:48.790Z"
+  },
+  {
+    "_id": "a3b7c4bf44165ae6d482c86c",
+    "email": "valentin222@gmail.com",
+    "password": "$2b$10$VaBp9RsVqRyhLdXp1YPK0uj0AGGIJI9bCkZJl03tdHsv7anaEjllG",
+    "role": 0,
+    "createdAt": "2025-09-30T13:21:38.872Z",
+    "updatedAt": "2025-09-30T13:21:38.872Z"
+  },
+  {
+    "_id": "008cb1606528e8a51ac19ffd",
+    "email": "santiago@gmail.com",
+    "password": "$2b$10$02jH7p9gxxIxFL1JrPQyZOTto9V5PRiDz5uIeTqn6pxUba//y0Fa.",
+    "role": 0,
+    "createdAt": "2025-09-30T13:23:52.247Z",
+    "updatedAt": "2025-09-30T13:23:52.247Z"
+  },
+  {
+    "_id": "1e6052c0fb4d34770dcf6150",
+    "email": "santiago1@gmail.com",
+    "password": "$2b$10$OXj/ZmG97eQZOc183G31feBnE.i4mCIJEEnBwxvOQdMQku9oe.dDy",
+    "role": 0,
+    "createdAt": "2025-09-30T13:30:22.221Z",
+    "updatedAt": "2025-09-30T13:30:22.221Z"
+  }
+]

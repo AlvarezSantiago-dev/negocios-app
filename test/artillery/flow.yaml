@@ -1,0 +1,25 @@
+config:
+  pluggins:
+    metrics-by-endpoint: {}
+  target: http://localhost:8080/api
+  phases:
+    - duration: 10
+      arrivalRate: 50
+scenarios:
+  - name: login
+    flow:
+      - log: login
+      - post:
+          url: /sessions/login
+          json:
+            email: santiagoalvarezc5@gmail.com
+            password: hola1234
+      - log: ver productos
+      - get:
+          url: /products
+      - log: crear producto
+      - post:
+          url: /products
+          json:
+            title: remera
+            price: 6

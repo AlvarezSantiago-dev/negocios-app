@@ -1,0 +1,296 @@
+[33mERROR[39m: POST  /api/sessions/login - 11:03:03 AM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 10:31:27 AM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/register - 7:08:38 PM -"name" is required,"verfyCode" is required
+[33mERROR[39m: POST  /api/sessions/register - 7:08:57 PM -"verfyCode" is required
+[33mERROR[39m: POST  /api/sessions/register - 7:14:37 PM -El nombre debe tener minimo 3 caracteres,"verfyCode" is required
+[33mERROR[39m: POST  /api/sessions/register - 7:15:03 PM -"verfyCode" is required
+[33mERROR[39m: POST  /api/sessions/register - 7:15:06 PM -El nombre tiene que tener un maximo de 15 caracteres,"verfyCode" is required
+[33mERROR[39m: POST  /api/sessions/register - 7:32:01 AM -El email tiene que tener un maximo de 15 caracteres,"verfyCode" is required
+[33mERROR[39m: POST  /api/sessions/register - 7:34:04 AM -code is not defined
+[33mERROR[39m: POST  /api/sessions/register - 7:34:38 AM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/register - 7:35:39 AM -verfyCode is not defined
+[33mERROR[39m: POST  /api/sessions/register - 7:37:46 AM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/register - 7:38:09 AM -code is not defined
+[33mERROR[39m: POST  /api/sessions/register - 7:40:39 AM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/register - 7:40:50 AM -code is not defined
+[33mERROR[39m: POST  /api/sessions/register - 7:47:06 AM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/register - 7:50:49 AM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/register - 7:51:18 AM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/register - 7:52:32 AM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/password - 7:55:42 AM -policies.includes is not a function
+[33mERROR[39m: POST  /api/sessions/password - 7:55:54 AM -policies.includes is not a function
+[33mERROR[39m: POST  /api/sessions/password - 7:56:30 AM -Cannot destructure property 'email' of 'req.body' as it is undefined.
+[33mERROR[39m: POST  /api/sessions/password - 8:02:50 AM -Cast to ObjectId failed for value "false" (type boolean) at path "_id" for model "users"
+[33mERROR[39m: POST  /api/sessions/password - 8:07:21 AM -crypto.randomBytes is not a function
+[33mERROR[39m: POST  /api/sessions/password - 8:07:41 AM -sendEmail is not defined
+[33mERROR[39m: PUT  /api/sessions/ressetpass - 8:17:01 AM -Cannot destructure property 'email' of 'req.body' as it is undefined.
+[33mERROR[39m: PUT  /api/sessions/ressetpass - 8:17:11 AM -Cannot destructure property 'email' of 'req.body' as it is undefined.
+[33mERROR[39m: POST  /api/products - 12:13:29 PM -El nombre es requerido,El precio de compra es obligatorio,El precio de venta es obligatorio,"email" is not allowed,"code" is not allowed
+[33mERROR[39m: POST  /api/products - 1:41:12 PM -Cannot read properties of undefined (reading 'nombre')
+[33mERROR[39m: POST  /api/ventas - 1:41:28 PM -policies.includes is not a function
+[33mERROR[39m: POST  /api/ventas - 1:42:05 PM -Cannot destructure property 'productoId' of 'data' as it is undefined.
+[33mERROR[39m: POST  /api/ventas - 1:42:40 PM -La venta debe contener al menos un ítem,"productoId" is not allowed
+[33mERROR[39m: POST  /api/ventas - 1:48:33 PM -La venta debe contener al menos un ítem,"productoId" is not allowed,"cantidad" is not allowed
+[33mERROR[39m: POST  /api/ventas - 1:51:37 PM -La venta debe contener al menos un ítem,"productoId" is not allowed,"cantidad" is not allowed,"precioVenta" is not allowed
+[33mERROR[39m: POST  /api/ventas - 1:57:31 PM -La venta debe contener al menos un ítem,"productoId" is not allowed,"cantidad" is not allowed,"precioVenta" is not allowed
+[33mERROR[39m: POST  /api/ventas - 1:57:32 PM -La venta debe contener al menos un ítem,"productoId" is not allowed,"cantidad" is not allowed,"precioVenta" is not allowed
+[33mERROR[39m: POST  /api/ventas - 1:57:44 PM -"items[0].precioVenta" is not allowed,"items[0].precioCompra" is not allowed,"items[0].subtotal" is not allowed,"items[1].precioVenta" is not allowed,"items[1].precioCompra" is not allowed,"items[1].subtotal" is not allowed,El método de pago debe ser uno de: efectivo, debito, credito, mp, transferencia,"totalVenta" is not allowed,"gananciaTotal" is not allowed
+[33mERROR[39m: POST  /api/ventas - 1:58:49 PM -"items[0].precioVenta" is not allowed,"items[0].precioCompra" is not allowed,"items[0].subtotal" is not allowed,"items[1].precioVenta" is not allowed,"items[1].precioCompra" is not allowed,"items[1].subtotal" is not allowed,El método de pago debe ser uno de: efectivo, debito, credito, mp, transferencia,"totalVenta" is not allowed,"gananciaTotal" is not allowed
+[33mERROR[39m: POST  /api/ventas - 1:59:48 PM -"items[0].precioVenta" is not allowed,"items[0].precioCompra" is not allowed,"items[0].subtotal" is not allowed,"items[1].precioVenta" is not allowed,"items[1].precioCompra" is not allowed,"items[1].subtotal" is not allowed,El método de pago debe ser uno de: efectivo, debito, credito, mp, transferencia,"totalVenta" is not allowed,"gananciaTotal" is not allowed
+[33mERROR[39m: POST  /api/ventas - 2:00:56 PM -El producto no existe
+[33mERROR[39m: POST  /api/products - 2:38:05 PM -El stock es obligatorio
+[33mERROR[39m: POST  /api/ventas - 3:10:50 PM -El precioCompra es obligatorio,El subtotal es obligatorio,El total de venta es obligatorio,La gananciaTotal es obligatoria
+[33mERROR[39m: POST  /api/ventas - 5:04:44 PM -El producto no existe
+[33mERROR[39m: POST  /api/ventas - 5:05:47 PM -La venta debe tener al menos un producto
+[33mERROR[39m: POST  /api/ventas - 5:08:51 PM -El producto no existe
+[33mERROR[39m: GET  /api/ventas - 6:15:19 PM -policies.includes is not a function
+[33mERROR[39m: POST  /api/ventas - 11:54:33 AM -Stock insuficiente para Cerveza Marca X (caja). Disponible: 0
+[33mERROR[39m: POST  /api/ventas - 11:55:06 AM -Stock insuficiente para Cerveza Marca X (caja). Disponible: 0
+[33mERROR[39m: POST  /api/ventas - 11:55:07 AM -Stock insuficiente para Cerveza Marca X (caja). Disponible: 0
+[33mERROR[39m: POST  /api/ventas - 11:55:08 AM -Stock insuficiente para Cerveza Marca X (caja). Disponible: 0
+[33mERROR[39m: PUT  /api/products/692346a1fdf6709d70431737 - 11:57:47 AM -Cannot read properties of undefined (reading 'tipo')
+[33mERROR[39m: POST  /api/ventas - 11:59:51 AM -Stock insuficiente para Cerveza Marca X (caja). Disponible: 0
+[33mERROR[39m: POST  /api/sessions/login - 8:26:29 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:27:49 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:30:24 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:30:25 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:30:26 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:30:32 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:30:33 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:32:55 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:32:56 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:32:56 PM -usersRepository.readByEmailRepository is not a function
+[33mERROR[39m: POST  /api/sessions/login - 9:33:14 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:33:14 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:33:14 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:33:17 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:34:20 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:34:34 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:36:26 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:39:51 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:39:52 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:41:15 PM -Cast to string failed for value "{ email: undefined }" (type Object) at path "email" for model "usuarios"
+[33mERROR[39m: POST  /api/sessions/login - 9:41:17 PM -Cast to string failed for value "{ email: undefined }" (type Object) at path "email" for model "usuarios"
+[33mERROR[39m: POST  /api/sessions/login - 9:41:21 PM -Cast to string failed for value "{ email: undefined }" (type Object) at path "email" for model "usuarios"
+[33mERROR[39m: POST  /api/sessions/login - 9:42:08 PM -Cast to string failed for value "{ email: 'santiagoalvarezc5@gmail.com' }" (type Object) at path "email" for model "usuarios"
+[33mERROR[39m: POST  /api/sessions/login - 9:42:12 PM -Cast to string failed for value "{ email: 'santiagoalvarezc5@gmail.com' }" (type Object) at path "email" for model "usuarios"
+[33mERROR[39m: POST  /api/sessions/login - 9:42:13 PM -Cast to string failed for value "{ email: 'santiagoalvarezc5@gmail.com' }" (type Object) at path "email" for model "usuarios"
+[33mERROR[39m: POST  /api/sessions/login - 9:46:12 PM -Cast to string failed for value "{ email: 'santiagoalvarezc5@gmail.com' }" (type Object) at path "email" for model "usuarios"
+[33mERROR[39m: POST  /api/sessions/login - 9:47:23 PM -Bad auth from login
+[33mERROR[39m: POST  /api/sessions/register - 9:48:07 PM -El nombre es requerido,La contraseña es requerida,"password" is not allowed
+[33mERROR[39m: POST  /api/sessions/register - 9:49:02 PM -El nombre es requerido,La contraseña es requerida,"password" is not allowed
+[33mERROR[39m: POST  /api/sessions/register - 9:58:06 PM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/login - 9:58:13 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 9:59:27 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 10:01:15 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/login - 10:01:16 PM -data and hash arguments required
+[33mERROR[39m: POST  /api/sessions/register - 10:08:45 PM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/register - 10:10:03 PM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/register - 10:16:32 PM -createHash is not defined
+[33mERROR[39m: POST  /api/sessions/register - 10:17:09 PM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/login - 10:19:41 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 10:19:43 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 10:19:57 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 10:20:33 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 10:20:34 PM -Invalid credentials
+[33mERROR[39m: GET  /api/sessions/online - 1:39:34 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: GET  /api/sessions/online - 1:39:34 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: POST  /api/sessions/login - 1:39:40 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:42 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:42 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:43 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:44 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:44 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:44 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:44 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:45 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:45 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:39:45 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:40:06 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 1:40:40 PM -Invalid credentials
+[33mERROR[39m: GET  /api/sessions/online - 1:41:08 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: GET  /api/sessions/online - 1:41:08 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: GET  /api/sessions/online - 1:41:14 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: GET  /api/sessions/online - 1:41:14 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: GET  /api/sessions/online - 1:42:38 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: GET  /api/sessions/online - 1:42:38 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: GET  /api/sessions/online - 1:42:45 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: GET  /api/sessions/online - 1:42:45 PM -Cannot read properties of undefined (reading 'online')
+[33mERROR[39m: POST  /api/sessions/login - 2:00:25 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 2:08:05 PM -cookieParser("secret") required for signed cookies
+[33mERROR[39m: POST  /api/sessions/login - 2:09:53 PM -cookieParser("secret") required for signed cookies
+[33mERROR[39m: POST  /api/sessions/login - 2:09:55 PM -cookieParser("secret") required for signed cookies
+[33mERROR[39m: POST  /api/sessions/register - 2:17:17 PM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/register - 2:17:19 PM -Bad auth from register!
+[33mERROR[39m: POST  /api/sessions/login - 2:30:03 PM -cookieParser("secret") required for signed cookies
+[33mERROR[39m: POST  /api/sessions/login - 2:30:06 PM -cookieParser("secret") required for signed cookies
+[33mERROR[39m: POST  /api/sessions/login - 2:30:10 PM -cookieParser("secret") required for signed cookies
+[33mERROR[39m: POST  /api/sessions/login - 2:36:07 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 3:42:09 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 7:48:54 PM -Invalid credentials
+[33mERROR[39m: POST  /api/sessions/login - 7:56:41 PM -Invalid credentials
+[33mERROR[39m: POST  /api/ventas - 10:31:54 PM -Stock insuficiente para Cerveza Marca X (caja). Disponible: 0
+[33mERROR[39m: DELETE  /api/products/:pid?=69263289098b23dd0cd0ff8a - 9:27:56 AM -Cast to ObjectId failed for value ":pid" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:28:10 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:28:14 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:28:16 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:29:24 AM -_id is not defined
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:29:42 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:29:44 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:29:50 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:29:51 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:31:04 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:31:05 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:55:11 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 9:55:12 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 10:04:06 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/products/:_id?=69263289098b23dd0cd0ff8a - 10:04:08 AM -Cast to ObjectId failed for value ":_id" (type string) at path "_id" for model "productos"
+[33mERROR[39m: POST  /api/products - 10:27:15 AM -El stock es obligatorio
+[33mERROR[39m: POST  /api/products - 10:33:04 AM -El stock es obligatorio
+[33mERROR[39m: POST  /api/products - 10:33:26 AM -El stock es obligatorio
+[33mERROR[39m: POST  /api/products - 10:35:18 AM -El stock es obligatorio
+[33mERROR[39m: POST  /api/products - 10:35:47 AM -El stock es obligatorio
+[33mERROR[39m: POST  /api/products - 10:36:49 AM -El stock es obligatorio
+[33mERROR[39m: POST  /api/products - 10:39:30 AM -El stock es obligatorio
+[33mERROR[39m: POST  /api/products - 10:48:21 AM -El tipo debe ser 'unitario', 'peso' o 'pack'
+[33mERROR[39m: POST  /api/products - 11:04:29 AM -El nombre no puede estar vacío,"precioCompra" must be a number,"precioVenta" must be a number
+[33mERROR[39m: POST  /api/products - 3:02:01 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 3:04:27 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 3:04:42 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 3:06:20 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 3:45:12 PM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 3:45:25 PM -"precioCompraPack" is not allowed,"unidadPorPack" is not allowed
+[33mERROR[39m: POST  /api/ventas - 4:14:59 PM -Producto no encontrado.
+[33mERROR[39m: POST  /api/ventas - 4:15:09 PM -Producto no encontrado.
+[33mERROR[39m: POST  /api/ventas - 4:15:11 PM -Producto no encontrado.
+[33mERROR[39m: POST  /api/products - 4:18:42 PM -"precioCompraPack" is not allowed,"unidadPorPack" is not allowed
+[33mERROR[39m: POST  /api/products - 4:21:43 PM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 5:12:59 PM -"stockMinimo" is not allowed,"foto" is not allowed
+[33mERROR[39m: POST  /api/products - 5:17:31 PM -"stockMinimo" is not allowed,"foto" is not allowed
+[33mERROR[39m: POST  /api/sessions/login - 8:20:58 PM -Invalid credentials
+[33mERROR[39m: POST  /api/products - 8:39:44 PM -"precioCompra" is not allowed,"unidadPorPack" must be greater than or equal to 1
+[33mERROR[39m: POST  /api/products - 8:39:50 PM -"precioCompra" is not allowed,"unidadPorPack" must be greater than or equal to 1
+[33mERROR[39m: POST  /api/products - 8:40:04 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 8:40:22 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 8:40:55 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 8:41:01 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 8:41:10 PM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 8:41:15 PM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 8:41:17 PM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 11:37:11 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 11:38:41 AM -"precioCompra" is required
+[33mERROR[39m: POST  /api/products - 11:39:03 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 11:39:40 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 11:45:53 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 11:45:54 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 11:45:55 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 11:45:56 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 11:49:17 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 12:37:15 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 12:37:47 PM -"precioCompra" is not allowed
+[33mERROR[39m: POST  /api/products - 12:45:02 PM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 2:45:13 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 2:45:22 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 2:45:24 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 2:46:35 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 2:47:46 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 2:47:48 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 2:47:51 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 5:26:07 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 5:29:20 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 5:30:01 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 5:31:40 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 5:31:46 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: POST  /api/ventas - 5:57:30 PM -Stock insuficiente para Coca Cola 2.25L. Disponible: 0
+[33mERROR[39m: POST  /api/ventas - 5:57:33 PM -Stock insuficiente para Coca Cola 2.25L. Disponible: 0
+[33mERROR[39m: POST  /api/ventas - 5:57:37 PM -Stock insuficiente para Coca Cola 2.25L. Disponible: 0
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 6:05:11 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: POST  /api/products - 6:25:49 PM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:15:41 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:15:47 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: POST  /api/ventas - 8:16:10 PM -Stock insuficiente para Coca Cola 2.25L. Disponible: 0
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:16:28 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:16:57 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:18:23 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:18:30 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:19:45 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:20:01 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:20:03 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:20:04 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:20:07 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:22:40 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:22:42 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:22:44 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: POST  /api/ventas - 8:23:17 PM -Stock insuficiente para Agua Mineral 600ml. Disponible: 0
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:23:20 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:23:23 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:30:07 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:30:11 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:32:44 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: POST  /api/ventas - 8:33:22 PM -Stock insuficiente para Coca Cola 4.25L. Disponible: 0
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:38:55 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:42:02 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:42:04 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:42:06 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:50:22 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:50:22 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:50:44 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:50:48 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/ventas/ultimos7 - 8:58:50 PM -Cast to ObjectId failed for value "ultimos7" (type string) at path "_id" for model "ventas"
+[33mERROR[39m: GET  /api/products/ranking - 9:25:19 PM -Cast to ObjectId failed for value "ranking" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:25:19 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/ranking - 9:25:29 PM -Cast to ObjectId failed for value "ranking" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:25:29 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/ranking - 9:27:46 PM -Cast to ObjectId failed for value "ranking" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/ranking - 9:27:46 PM -Cast to ObjectId failed for value "ranking" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:27:46 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:27:46 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/ranking - 9:27:54 PM -Cast to ObjectId failed for value "ranking" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:27:55 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/ranking - 9:28:10 PM -Cast to ObjectId failed for value "ranking" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:28:10 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/ranking - 9:28:12 PM -Cast to ObjectId failed for value "ranking" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:28:12 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:45:21 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:45:36 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:47:53 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 9:48:28 PM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 11:18:20 AM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/products/stock-bajo - 11:57:56 AM -Cast to ObjectId failed for value "stock-bajo" (type string) at path "_id" for model "productos"
+[33mERROR[39m: GET  /api/caja/resumen - 4:39:16 PM -policies.includes is not a function
+[33mERROR[39m: POST  /api/ventas - 4:49:25 PM -Producto no encontrado.
+[33mERROR[39m: POST  /api/ventas - 4:49:51 PM -Stock insuficiente para Coca Cola 2.25L. Disponible: 4
+[33mERROR[39m: POST  /api/caja/movimiento - 6:29:48 PM -Cannot read properties of undefined (reading 'tipo')
+[33mERROR[39m: GET  /api/caja/estado - 8:34:17 PM -API_CAJA is not defined
+[33mERROR[39m: GET  /api/caja/estado - 8:35:17 PM -API_CAJA is not defined
+[33mERROR[39m: GET  /api/caja/cierres - 8:35:28 PM -res.sendServerError is not a function
+[33mERROR[39m: GET  /api/caja/cierres - 8:37:06 PM -cierreRepository is not defined
+[33mERROR[39m: GET  /api/caja/cierres - 8:41:22 PM -Cannot read properties of undefined (reading 'readMany')
+[33mERROR[39m: GET  /api/caja/cierres - 8:43:21 PM -Cannot read properties of undefined (reading 'read')
+[33mERROR[39m: GET  /api/caja/cierres - 8:43:57 PM -Cannot read properties of undefined (reading 'read')
+[33mERROR[39m: POST  /api/caja/cierre - 9:01:35 PM -cajaRepository is not defined
+[33mERROR[39m: POST  /api/caja/cierre - 9:03:01 PM -cajaRepository is not defined
+[33mERROR[39m: POST  /api/caja/cierre - 9:04:22 PM -cajaService.movimientosPorFecha is not a function
+[33mERROR[39m: POST  /api/caja/cierre - 9:05:15 PM -ventasRepository is not defined
+[33mERROR[39m: POST  /api/caja/cierre - 9:05:51 PM -ventasRepository.ventasPorFecha is not a function
+[33mERROR[39m: POST  /api/caja/movimiento - 12:20:28 AM -Faltan campos para crear movimiento de caja
+[33mERROR[39m: POST  /api/caja/cierre - 8:47:59 AM -cajaRepository is not defined
+[33mERROR[39m: POST  /api/caja/cierre - 8:48:28 AM -cajaRepository is not defined
+[33mERROR[39m: POST  /api/caja/cierre - 8:49:22 AM -cajaRepository is not defined
+[33mERROR[39m: POST  /api/caja/cierre - 2:43:35 PM -cajaRepository is not defined
+[33mERROR[39m: POST  /api/caja/cierre - 2:43:37 PM -cajaRepository is not defined
+[33mERROR[39m: POST  /api/caja/cierre - 2:43:38 PM -cajaRepository is not defined
+[33mERROR[39m: POST  /api/caja/cierre - 8:52:34 PM -Cannot set headers after they are sent to the client
+[33mERROR[39m: POST  /api/caja/cierre - 8:53:16 PM -Cannot set headers after they are sent to the client
+[33mERROR[39m: POST  /api/caja/cierre - 8:53:19 PM -Cannot set headers after they are sent to the client
+[33mERROR[39m: GET  /api/caja/resumen - 9:15:20 PM -this.obtenerMovimientos is not a function
+[33mERROR[39m: GET  /api/caja/resumen - 9:17:18 PM -cierreRepository is not defined
+[33mERROR[39m: GET  /api/caja/resumen - 9:17:20 PM -cierreRepository is not defined
+[33mERROR[39m: GET  /api/caja/cierres/hoy - 7:53:04 PM -cierreRepository is not defined
+[33mERROR[39m: GET  /api/sessions/online - 2:24:36 PM -getaddrinfo ENOTFOUND ac-minft3c-shard-00-01.sc6x96t.mongodb.net
+[33mERROR[39m: GET  /api/products - 2:25:06 PM -getaddrinfo ENOTFOUND ac-minft3c-shard-00-02.sc6x96t.mongodb.net
+[33mERROR[39m: GET  /api/ventas - 2:25:06 PM -getaddrinfo ENOTFOUND ac-minft3c-shard-00-02.sc6x96t.mongodb.net
+[33mERROR[39m: POST  /api/ventas - 3:49:25 PM -"items[0].cantidad" must be a positive number
+[33mERROR[39m: POST  /api/sessions/login - 4:34:23 PM -Bad auth from login
+[33mERROR[39m: POST  /api/sessions/login - 4:34:27 PM -Bad auth from login
+[33mERROR[39m: POST  /api/sessions/login - 4:34:39 PM -Bad auth from login

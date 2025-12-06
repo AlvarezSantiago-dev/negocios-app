@@ -1,0 +1,14 @@
+.navbar {
+  display: flex;
+}
+.navbar ul {
+  display: flex;
+}
+.navbar ul li {
+  padding: 10px;
+  list-style: none;
+}
+.navbar ul li a {
+  color: #333;
+  text-decoration: none;
+}

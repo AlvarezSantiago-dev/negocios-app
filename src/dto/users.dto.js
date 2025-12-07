@@ -13,7 +13,7 @@ class UsuarioDTO {
     this.nombre = data.nombre;
     this.email = data.email;
     this.rol = data.rol || 0;
-    this.contraseña = createHash(data.contraseña);
+    this.password = createHash(data.password);
   }
 }
 

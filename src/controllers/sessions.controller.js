@@ -97,9 +97,9 @@ class SessionsController {
       // enviar email
       await sendEmail({
         to: user.email,
-        subject: "Recuperación de contraseña",
+        subject: "Recuperación de password",
         html: `
-        <h1>Recuperación de contraseña</h1>
+        <h1>Recuperación de password</h1>
         <p>Tu código de recuperación es: <strong>${resetCode}</strong></p>
       `,
       });
@@ -128,7 +128,7 @@ class SessionsController {
         resetCode: null,
       });
 
-      return res.exitoMensaje("Contraseña restablecida exitosamente");
+      return res.exitoMensaje("password restablecida exitosamente");
     } catch (error) {
       next(error);
     }

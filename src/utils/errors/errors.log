@@ -77,8 +77,8 @@
 [33mERROR[39m: POST  /api/sessions/login - 9:42:13 PM -Cast to string failed for value "{ email: 'santiagoalvarezc5@gmail.com' }" (type Object) at path "email" for model "usuarios"
 [33mERROR[39m: POST  /api/sessions/login - 9:46:12 PM -Cast to string failed for value "{ email: 'santiagoalvarezc5@gmail.com' }" (type Object) at path "email" for model "usuarios"
 [33mERROR[39m: POST  /api/sessions/login - 9:47:23 PM -Bad auth from login
-[33mERROR[39m: POST  /api/sessions/register - 9:48:07 PM -El nombre es requerido,La contraseña es requerida,"password" is not allowed
-[33mERROR[39m: POST  /api/sessions/register - 9:49:02 PM -El nombre es requerido,La contraseña es requerida,"password" is not allowed
+[33mERROR[39m: POST  /api/sessions/register - 9:48:07 PM -El nombre es requerido,La password es requerida,"password" is not allowed
+[33mERROR[39m: POST  /api/sessions/register - 9:49:02 PM -El nombre es requerido,La password es requerida,"password" is not allowed
 [33mERROR[39m: POST  /api/sessions/register - 9:58:06 PM -Bad auth from register!
 [33mERROR[39m: POST  /api/sessions/login - 9:58:13 PM -data and hash arguments required
 [33mERROR[39m: POST  /api/sessions/login - 9:59:27 PM -data and hash arguments required

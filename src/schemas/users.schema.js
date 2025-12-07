@@ -20,11 +20,11 @@ const usuarioSchema = joi.object({
     "string.base": "El rol debe ser un numero",
   }),
 
-  contraseña: joi.string().min(6).required().messages({
-    "any.required": "La contraseña es requerida",
-    "string.base": "La contraseña debe ser un texto",
-    "string.empty": "La contraseña no puede estar vacía",
-    "string.min": "La contraseña debe tener mínimo 6 caracteres",
+  password: joi.string().min(6).required().messages({
+    "any.required": "La password es requerida",
+    "string.base": "La password debe ser un texto",
+    "string.empty": "La password no puede estar vacía",
+    "string.min": "La password debe tener mínimo 6 caracteres",
   }),
 });
 

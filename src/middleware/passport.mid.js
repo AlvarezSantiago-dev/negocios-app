@@ -14,7 +14,7 @@ passport.use(
     {
       passReqToCallback: true,
       usernameField: "email",
-      passwordField: "contraseña",
+      passwordField: "password",
     },
     async (req, email, password, done) => {
       try {
@@ -59,9 +59,9 @@ passport.use(
     {
       passReqToCallback: true,
       usernameField: "email",
-      passwordField: "contraseña",
+      passwordField: "password",
     },
-    async (req, email, contraseña, done) => {
+    async (req, email, password, done) => {
       try {
         const user = await usersRepository.readByEmailRepository(email);
         if (!user) {
@@ -69,7 +69,7 @@ passport.use(
           error.statusCode = 401;
           return done(error);
         }
-        const verifyPass = verifyHash(contraseña, user.contraseña);
+        const verifyPass = verifyHash(password, user.password);
         //const verfifyAccount = user.verify;
         //Ahora no solo verifico la contrasena sino que ahora verifico
         //que el usuario tenga la prop verify en true.

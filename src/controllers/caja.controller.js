@@ -162,7 +162,10 @@ class CajaController {
 
       // Total real del cierre
       const totalReal =
-        ventasReport.totalVendido + resumen.ingresos - resumen.egresos;
+        resumen.apertura +
+        ventasReport.totalVendido +
+        (resumen.ingresos - resumen.apertura) -
+        resumen.egresos;
 
       const cierreData = {
         operacion: "cierre",

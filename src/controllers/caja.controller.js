@@ -1,8 +1,8 @@
 // src/controllers/caja.controller.js
-import cajaService from "../services/caja.service.js";
 import cierreRepository from "../repositories/cierre.rep.js";
+import cajaService from "../services/caja.service.js";
 import ventasService from "../services/ventas.service.js";
-import { fechaCompletaArg, hoyArg } from "../utils/fecha.js";
+import { fechaCompletaArg } from "../utils/fecha.js";
 
 class CajaController {
   crearMovimiento = async (req, res, next) => {
@@ -38,35 +38,42 @@ class CajaController {
       return next(error);
     }
   };
-
+  //update para fechas
   resumenDelDia = async (req, res, next) => {
     try {
       const { fecha } = req.query; // YYYY-MM-DD
       if (!fecha) return res.error400("Fecha requerida");
+
       const resumen = await cajaService.resumenDelDiaService(fecha);
+
+      // 🔹 flag para frontend
+      resumen.abierta = resumen.movimientos.some(
+        (m) => m.operacion === "apertura"
+      );
+
       return res.exito200(resumen);
     } catch (error) {
       return next(error);
     }
   };
+
   // src/controllers/caja.controller.js
   aperturaCaja = async (req, res) => {
     try {
       const { efectivo = 0, mp = 0, transferencia = 0 } = req.body;
 
-      // Apertura
       const hoyAR = fechaCompletaArg();
       const fechaISO = hoyAR.toISOString().slice(0, 10);
-
       const resumen = await cajaService.resumenDelDiaService(fechaISO);
       const yaAbrio = resumen.movimientos.some(
         (m) => m.operacion === "apertura"
       );
 
       if (yaAbrio)
-        return res
-          .status(400)
-          .json({ statusCode: 400, message: "La caja ya fue abierta hoy." });
+        return res.status(400).json({
+          statusCode: 400,
+          message: "La caja ya fue abierta hoy.",
+        });
 
       const movimientosApertura = [];
 
@@ -285,14 +292,14 @@ const {
   ultimos7Cierres,
 } = cajaController;
 export {
+  aperturaCaja,
+  cierreCaja,
   crearMovimiento,
+  editarMovimiento,
+  eliminarMovimiento,
+  historialCierres,
   obtenerBalance,
   obtenerMovimientos,
   resumenDelDia,
-  aperturaCaja,
-  cierreCaja,
-  historialCierres,
-  editarMovimiento,
-  eliminarMovimiento,
   ultimos7Cierres,
 };

@@ -53,8 +53,7 @@ server.use(cookieParser(environment.SECRET_JWT));
 server.use(winston);
 server.use(
   cors({
-    origin:
-      "https://negocios-app-frontend-git-main-alvarezsantiagodevs-projects.vercel.app",
+    origin: "https://negocios-app-frontend.vercel.app",
     credentials: true,
   })
 );

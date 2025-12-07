@@ -33,7 +33,10 @@ class CierreRepository {
     return !!cierre;
   }
   async obtenerUltimos7Dias() {
-    const desde = new Date();
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+
+    const desde = new Date(hoy);
     desde.setDate(desde.getDate() - 7);
 
     return await this.model.Model.find({

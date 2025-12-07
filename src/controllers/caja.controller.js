@@ -122,89 +122,74 @@ class CajaController {
   // src/controllers/caja.controller.js
   cierreCaja = async (req, res) => {
     try {
-      // Hora local Argentina
+      // Hora REAL Argentina
+      const ahoraAR = new Date(
+        new Date().toLocaleString("en-US", {
+          timeZone: "America/Argentina/Buenos_Aires",
+        })
+      );
 
-      const ahoraAR = fechaCompletaArg();
       const fechaISO = ahoraAR.toISOString().slice(0, 10);
-      const fechaLocal = new Date(`${fechaISO}T00:00:00.000-03:00`);
+      const inicioAR = new Date(`${fechaISO}T00:00:00-03:00`);
 
-      // Verificar si ya hay un cierre hoy
-      const yaCerro = await cierreRepository.existeCierreHoy(fechaISO);
-      if (yaCerro) {
-        return res
-          .status(400)
-          .json({ statusCode: 400, message: "La caja ya fue cerrada hoy." });
+      // Evita cierre duplicado
+      if (await cierreRepository.existeCierreHoy(fechaISO)) {
+        return res.status(400).json({
+          statusCode: 400,
+          message: "La caja ya fue cerrada hoy.",
+        });
       }
 
-      // Traer resumen del día
+      // Resumen movimientos
       const resumen = await cajaService.resumenDelDiaService(fechaISO);
 
-      // dentro de cierreCaja, después de obtener `resumen`:
+      // Reporte ventas
       const ventasReport = await ventasService.ventasDiariasService(fechaISO);
-      // ventasReport = { fecha, ventas, totalVendido, gananciaTotal, cantidadVentas }
 
-      const ventasRaw = Array.isArray(ventasReport.ventas)
-        ? ventasReport.ventas
-        : [];
-      console.log("VENTAS RAW:", ventasReport.ventas);
-
-      // Mapear ventas al formato que querés guardar en el cierre
-      const ventasDetalladas = ventasRaw.map((v) => ({
-        idVenta: String(v._id ?? v.id ?? ""),
-        // usá la fecha de la venta (v.fecha) si la guardás, si no createdAt
-        hora: v.fecha
-          ? new Date(v.fecha)
-          : v.createdAt
-          ? new Date(v.createdAt)
-          : null,
-        total: Number(v.totalVenta ?? v.total ?? 0),
-        metodo: v.metodoPago ?? v.metodo ?? "efectivo",
-        productos: Array.isArray(v.items)
-          ? v.items.map((it) => {
-              // productoId puede venir como object con campos poblados o sólo id
-              const prod = it.productoId ?? it.producto ?? {};
-              return {
-                id: String(prod._id ?? prod.id ?? it.productoId ?? ""),
-                nombre: prod.nombre ?? prod.nombreProducto ?? "(sin nombre)",
-                cantidad: Number(it.cantidad ?? it.cant ?? 0),
-                precio: Number(
-                  it.precioVenta ?? it.precio ?? prod.precioVenta ?? 0
-                ),
-              };
-            })
-          : [],
+      const ventasDetalladas = ventasReport.ventas.map((v) => ({
+        idVenta: String(v._id),
+        hora: new Date(v.fecha),
+        total: Number(v.totalVenta),
+        ganancia: Number(v.gananciaTotal),
+        metodo: v.metodoPago,
+        productos: v.items.map((it) => ({
+          id: String(it.productoId),
+          nombre: it.producto?.nombre ?? "(sin nombre)",
+          cantidad: it.cantidad,
+          precio: it.precioVenta,
+        })),
       }));
 
-      // ahora armo cierreData usando resumen + ventasDetalladas
+      // Total real del cierre
+      const totalReal =
+        ventasReport.totalVendido + resumen.ingresos - resumen.egresos;
+
       const cierreData = {
         operacion: "cierre",
-        fecha: fechaLocal,
+        fecha: inicioAR,
+        cierreHora: ahoraAR,
         efectivo: resumen.efectivo,
         mp: resumen.mp,
         transferencia: resumen.transferencia,
-        total: resumen.total,
+        totalVendido: ventasReport.totalVendido,
+        gananciaTotal: ventasReport.gananciaTotal,
+        total: totalReal,
         apertura:
           resumen.movimientos.find((m) => m.operacion === "apertura")?.monto ??
           0,
         ingresos: resumen.ingresos,
         egresos: resumen.egresos,
         cantidadVentas: ventasDetalladas.length,
-        ventas: ventasDetalladas, // <-- nuevo campo
+        ventas: ventasDetalladas,
         usuario: req.user?.email ?? "desconocido",
-        cierreHora: ahoraAR,
       };
 
-      // Guardar cierre
       const cierre = await cierreRepository.crearCierre(cierreData);
 
       return res.json({ statusCode: 200, response: cierre });
-    } catch (err) {
-      if (err.code === 11000) {
-        return res
-          .status(400)
-          .json({ statusCode: 400, message: "Ya existe un cierre para hoy." });
-      }
-      return res.status(500).json({ error: err.message });
+    } catch (error) {
+      console.error("ERROR cierreCaja:", error);
+      return res.status(500).json({ error: error.message });
     }
   };
 

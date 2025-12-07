@@ -36,30 +36,29 @@ class CajaRepository {
     return movs.slice(0, Number(limit || 100));
   }
 
-  async obtenerBalance({ desde = null, hasta = null } = {}) {
-    const movs = await this.obtenerMovimientos({ desde, hasta, limit: 10000 });
+  async obtenerBalanceService() {
+    // 🔹 Obtener todos los movimientos (limit alto para seguridad)
+    const movs = await this.obtenerMovimientos({ limit: 10000 });
 
+    // 🔹 Fecha de hoy según hora Argentina
     const hoyAR = new Date(
       new Date().toLocaleString("en-US", {
         timeZone: "America/Argentina/Buenos_Aires",
       })
     );
-    const hoyISO = hoyAR.toISOString().slice(0, 10);
+    const hoyISO = hoyAR.toISOString().slice(0, 10); // YYYY-MM-DD
 
-    // apertura desde movimientos
+    // 🔹 Determinar si hubo apertura hoy
     const aperturaHoy = movs.some(
       (m) =>
         m.operacion === "apertura" &&
         m.fecha.toISOString().slice(0, 10) === hoyISO
     );
 
-    // ⛔ tu error estaba acá
-    // const cierreHoy = movs.some(...)  <-- cierres NO están en movs
-
-    // ✔ ahora lo hacemos así:
-    // ✔ ahora lo hacemos así:
+    // 🔹 Determinar si hubo cierre hoy
     const cierreHoy = await cierreRepository.existeCierreHoy(hoyISO);
 
+    // 🔹 Calcular montos por método
     const efectivo = movs
       .filter((m) => m.metodo === "efectivo")
       .reduce((acc, m) => acc + (m.tipo === "ingreso" ? m.monto : -m.monto), 0);
@@ -72,6 +71,7 @@ class CajaRepository {
       .filter((m) => m.metodo === "transferencia")
       .reduce((acc, m) => acc + (m.tipo === "ingreso" ? m.monto : -m.monto), 0);
 
+    // 🔹 Resumen final
     return {
       efectivo,
       mp,
@@ -79,7 +79,7 @@ class CajaRepository {
       total: efectivo + mp + transferencia,
       aperturaHoy,
       cierreHoy,
-      abierta: aperturaHoy && !cierreHoy, // 👈 ESTA ES LA CLAVE
+      abierta: aperturaHoy && !cierreHoy, // 👈 clave para botón abrir/cerrar
     };
   }
 

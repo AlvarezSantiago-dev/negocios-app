@@ -36,9 +36,14 @@ server.use(
       ttl: 60 * 60,
     }),
     secret: environment.SECRET_SESSION,
-    resave: true,
-    saveUninitialized: true,
-    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: true, // OBLIGATORIO en producción con HTTPS (Vercel)
+      sameSite: "none", // OBLIGATORIO para cross-site cookies
+      maxAge: 24 * 60 * 60 * 1000,
+    },
   })
 );
 
@@ -46,7 +51,13 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(cookieParser(environment.SECRET_JWT));
 server.use(winston);
-server.use(cors({ origin: true, credentials: true }));
+server.use(
+  cors({
+    origin:
+      "https://negocios-app-frontend-ka79sno3x-alvarezsantiagodevs-projects.vercel.app/",
+    credentials: true,
+  })
+);
 server.use(
   compression({
     brotli: { enabled: true, zlib: {} },

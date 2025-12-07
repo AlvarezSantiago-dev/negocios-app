@@ -2,6 +2,7 @@
 import cajaService from "../services/caja.service.js";
 import cierreRepository from "../repositories/cierre.rep.js";
 import ventasService from "../services/ventas.service.js";
+import { fechaCompletaArg, hoyArg } from "../utils/fecha.js";
 
 class CajaController {
   crearMovimiento = async (req, res, next) => {
@@ -53,12 +54,8 @@ class CajaController {
     try {
       const { efectivo = 0, mp = 0, transferencia = 0 } = req.body;
 
-      const hoyAR = new Date(
-        new Date().toLocaleString("en-US", {
-          timeZone: "America/Argentina/Buenos_Aires",
-        })
-      );
-
+      // Apertura
+      const hoyAR = fechaCompletaArg();
       const fechaISO = hoyAR.toISOString().slice(0, 10);
 
       const resumen = await cajaService.resumenDelDiaService(fechaISO);
@@ -119,15 +116,9 @@ class CajaController {
   cierreCaja = async (req, res) => {
     try {
       // Hora local Argentina
-      const ahoraAR = new Date(
-        new Date().toLocaleString("en-US", {
-          timeZone: "America/Argentina/Buenos_Aires",
-        })
-      );
 
-      const fechaISO = `${ahoraAR.getFullYear()}-${String(
-        ahoraAR.getMonth() + 1
-      ).padStart(2, "0")}-${String(ahoraAR.getDate()).padStart(2, "0")}`;
+      const ahoraAR = fechaCompletaArg();
+      const fechaISO = ahoraAR.toISOString().slice(0, 10);
       const fechaLocal = new Date(`${fechaISO}T00:00:00.000-03:00`);
 
       // Verificar si ya hay un cierre hoy

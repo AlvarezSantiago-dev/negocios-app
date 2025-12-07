@@ -294,3 +294,5 @@
 [33mERROR[39m: POST  /api/sessions/login - 4:34:23 PM -Bad auth from login
 [33mERROR[39m: POST  /api/sessions/login - 4:34:27 PM -Bad auth from login
 [33mERROR[39m: POST  /api/sessions/login - 4:34:39 PM -Bad auth from login
+[33mERROR[39m: POST  /api/ventas - 2:32:20 PM -Producto no encontrado.
+[33mERROR[39m: POST  /api/products - 2:34:22 PM -Ya existe un producto con ese nombre y tipo

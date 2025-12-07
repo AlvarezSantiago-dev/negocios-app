@@ -6,7 +6,7 @@ class SessionsController {
   async login(req, res, next) {
     try {
       return res
-        .cookie("token", req.user.token, { signed: true })
+        .cookie("token", req.user.token, { signedCookie: true })
         .exitoMensaje("Logged In");
     } catch (error) {
       return next(error);

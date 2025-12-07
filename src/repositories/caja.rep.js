@@ -36,7 +36,7 @@ class CajaRepository {
     return movs.slice(0, Number(limit || 100));
   }
 
-  async obtenerBalanceService() {
+  async obtenerBalance() {
     // 🔹 Obtener todos los movimientos (limit alto para seguridad)
     const movs = await this.obtenerMovimientos({ limit: 10000 });
 

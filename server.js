@@ -54,10 +54,11 @@ server.use(winston);
 server.use(
   cors({
     origin:
-      "https://negocios-app-frontend-ka79sno3x-alvarezsantiagodevs-projects.vercel.app/",
+      "https://negocios-app-frontend-ka79sno3x-alvarezsantiagodevs-projects.vercel.app",
     credentials: true,
   })
 );
+
 server.use(
   compression({
     brotli: { enabled: true, zlib: {} },

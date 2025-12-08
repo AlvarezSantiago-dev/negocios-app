@@ -1,3 +1,4 @@
+import { fechaCompletaArg } from "../../utils/fecha.js";
 import Manager from "./Manager.mongo.js";
 import Product from "./models/products.model.js";
 
@@ -17,7 +18,7 @@ class ProductsManager extends Manager {
 
     producto.historialPrecios.push({
       precioCompra,
-      fecha: new Date(),
+      fecha: fechaCompletaArg(),
     });
 
     await producto.save();

@@ -2,6 +2,7 @@
 import Service from "./service.js";
 import cajaRepository from "../repositories/caja.rep.js";
 import cierreRepository from "../repositories/cierre.rep.js";
+import { fechaCompletaArg } from "../utils/fecha.js";
 
 class CajaService extends Service {
   constructor() {
@@ -27,7 +28,7 @@ class CajaService extends Service {
       metodo: data.metodo,
       ref: data.ref ?? null,
       operacion: data.operacion ?? "movimiento",
-      fecha: data.fecha ?? new Date(),
+      fecha: data.fecha ?? fechaCompletaArg(),
       detalleCierre: data.detalleCierre ?? undefined,
     };
 

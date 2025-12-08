@@ -1,6 +1,7 @@
 // src/repositories/ventas.rep.js
 import dao from "../data/dao.factory.js";
 import VentaDTO from "../dto/ventas.dto.js";
+import { fechaCompletaArg } from "../utils/fecha.js";
 
 const { ventas, products: productos } = dao; // products viene de dao.factory.js
 
@@ -87,7 +88,7 @@ class VentasRepository {
         metodoPago: data.metodoPago || "efectivo",
         totalVenta,
         gananciaTotal,
-        fecha: data.fecha ? new Date(data.fecha) : fechaAR,
+        fecha: data.fecha ?? fechaCompletaArg(),
       });
 
       // crear venta

@@ -4,6 +4,7 @@ import sendEmail from "../utils/mailing.util.js";
 import informeDiarioEmail from "../utils/emails/informeDiarioEmail.js";
 import cajaRepository from "../repositories/caja.rep.js";
 import cajaService from "./caja.service.js";
+import { fechaCompletaArg } from "../utils/fecha.js";
 class VentasService extends Service {
   constructor() {
     super(ventasRepository);
@@ -23,7 +24,7 @@ class VentasService extends Service {
         metodo: venta.metodoPago || data.metodoPago || "efectivo",
         ref: String(venta._id ?? venta._id?.toString?.() ?? ""),
         operacion: "venta",
-        fecha: venta.fecha ?? new Date(),
+        fecha: data.fecha ?? fechaCompletaArg(),
       });
     } catch (err) {
       // loguear y seguir: la venta ya fue registrada y el error de caja no debe eliminarla automáticamente.

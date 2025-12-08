@@ -1,6 +1,6 @@
 import argsUtil from "../utils/args.util.js";
 import crypto from "crypto";
-
+import { fechaCompletaArg } from "../utils/fecha.js";
 const persistence = argsUtil.persistence;
 
 class CierreDTO {
@@ -11,7 +11,7 @@ class CierreDTO {
 
     this.operacion = "cierre";
 
-    this.fecha = data.fecha ? new Date(data.fecha) : new Date();
+    this.fecha = data.fecha ?? fechaCompletaArg();
 
     this.efectivo = Number(data.efectivo ?? 0);
     this.mp = Number(data.mp ?? 0);

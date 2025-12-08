@@ -1,5 +1,6 @@
 import dao from "../data/dao.factory.js";
 import ProductoDTO from "../dto/products.dto.js";
+import { fechaCompletaArg } from "../utils/fecha.js";
 const { products } = dao;
 class ProductsRepository {
   constructor(manager) {
@@ -40,7 +41,7 @@ class ProductsRepository {
               : 1),
           tipo: dto.tipo,
           precioCompraUnitario: dto.precioCompra,
-          fecha: new Date(),
+          fecha: fechaCompletaArg(),
         });
         dto.stock =
           (dto.stock ?? 0) +

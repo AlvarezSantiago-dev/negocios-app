@@ -2,7 +2,7 @@
 import cierreRepository from "../repositories/cierre.rep.js";
 import cajaService from "../services/caja.service.js";
 import ventasService from "../services/ventas.service.js";
-import { fechaCompletaArg } from "../utils/fecha.js";
+import { fechaCompletaArg, hoyArg } from "../utils/fecha.js";
 
 class CajaController {
   crearMovimiento = async (req, res, next) => {
@@ -148,7 +148,7 @@ class CajaController {
 
       const ventasDetalladas = ventasReport.ventas.map((v) => ({
         idVenta: String(v._id),
-        hora: new Date(v.fecha),
+        hora: hoyArg(),
         total: Number(v.totalVenta),
         ganancia: Number(v.gananciaTotal),
         metodo: v.metodoPago,
@@ -167,7 +167,7 @@ class CajaController {
       const cierreData = {
         operacion: "cierre",
         fecha: inicioAR,
-        cierreHora: ahoraAR,
+        cierreHora: hoyArg(),
         efectivo: resumen.efectivo,
         mp: resumen.mp,
         transferencia: resumen.transferencia,

@@ -298,3 +298,7 @@
 [33mERROR[39m: POST  /api/products - 2:34:22 PM -Ya existe un producto con ese nombre y tipo
 [33mERROR[39m: GET  /api/caja/resumen - 6:51:06 PM -cajaRepository.obtenerBalance is not a function
 [33mERROR[39m: GET  /api/caja/resumen - 6:51:09 PM -cajaRepository.obtenerBalance is not a function
+[33mERROR[39m: POST  /api/ventas - 8:18:59 AM -Producto no encontrado.
+[33mERROR[39m: POST  /api/ventas - 8:43:07 AM -Producto no encontrado.
+[33mERROR[39m: POST  /api/products - 8:43:18 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 8:55:10 AM -Ya existe un producto con ese nombre y tipo

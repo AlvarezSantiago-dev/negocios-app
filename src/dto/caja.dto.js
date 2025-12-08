@@ -1,6 +1,7 @@
 // src/dto/caja.dto.js
 import argsUtil from "../utils/args.util.js";
 import crypto from "crypto";
+import { fechaCompletaArg } from "../utils/fecha.js";
 
 const persistence = argsUtil.persistence;
 
@@ -19,11 +20,11 @@ class CajaDTO {
     this.operacion = data.operacion ?? "movimiento";
 
     this.ref = data.ref ?? null; // referencia (venta id, compra id, etc)
-    this.fecha = data.fecha ? new Date(data.fecha) : new Date();
+    this.fecha = data.fecha ?? fechaCompletaArg();
 
     if (persistence !== "mongo") {
-      this.createdAt = data.createdAt ?? new Date();
-      this.updatedAt = data.updatedAt ?? new Date();
+      this.createdAt = data.createdAt ?? fechaCompletaArg();
+      this.updatedAt = data.updatedAt ?? fechaCompletaArg();
     }
   }
 }

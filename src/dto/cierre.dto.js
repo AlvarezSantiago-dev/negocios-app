@@ -26,6 +26,7 @@ class CierreDTO {
     this.cantidadVentas = Number(data.cantidadVentas ?? 0);
     this.usuario = data.usuario ?? null;
     this.gananciaTotal = Number(data.gananciaTotal ?? 0);
+    this.gananciaNeta = Number(data.gananciaNeta ?? 0);
     this.totalVendido = Number(data.totalVendido ?? 0);
 
     this.cierreHora = data.cierreHora ?? fechaCompletaArg();

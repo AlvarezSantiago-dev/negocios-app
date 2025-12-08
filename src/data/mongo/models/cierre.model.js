@@ -41,6 +41,7 @@ const cierreSchema = new Schema(
     ventas: { type: [VentaDetalleSchema], default: [] },
     totalVendido: { type: Number, default: 0 },
     gananciaTotal: { type: Number, default: 0 },
+    gananciaNeta: { type: Number, default: 0 },
 
     usuario: { type: String, default: "" },
     cierreHora: { type: Date, default: null },

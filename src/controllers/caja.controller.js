@@ -148,7 +148,7 @@ class CajaController {
 
       const ventasDetalladas = ventasReport.ventas.map((v) => ({
         idVenta: String(v._id),
-        hora: hoyArg(),
+        hora: fechaCompletaArg(),
         total: Number(v.totalVenta),
         ganancia: Number(v.gananciaTotal),
         metodo: v.metodoPago,
@@ -178,6 +178,7 @@ class CajaController {
         transferencia: resumen.transferencia,
         totalVendido: ventasReport.totalVendido,
         gananciaTotal: ventasReport.gananciaTotal,
+        gananciaNeta: ventasReport.gananciaTotal - resumen.egresos,
         total: totalReal,
         apertura: aperturaTotal, // <-- CORRECTO
         ingresos: resumen.ingresos,

@@ -38,10 +38,19 @@ server.use(
     secret: environment.SECRET_SESSION,
     resave: false,
     saveUninitialized: false,
+    /* seguridad
+
     cookie: {
       httpOnly: true,
       secure: true, // OBLIGATORIO en producción con HTTPS (Vercel)
       sameSite: "none", // OBLIGATORIO para cross-site cookies
+    },
+
+     seguridad*/
+    cookie: {
+      httpOnly: true,
+      secure: false,
+      sameSite: "lax",
       maxAge: 24 * 60 * 60 * 1000,
     },
   })

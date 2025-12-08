@@ -9,8 +9,8 @@ class SessionsController {
         .cookie("token", req.user.token, {
           signed: true, // ✅ esta es la clave
           httpOnly: true,
-          sameSite: "none", // necesario para cross-site
-          secure: true, // obligatorio si estás en HTTPS
+          sameSite: "lax", /// necesario para cross-siteg
+          secure: false, // obligatorio si estás en HTTPS SIN SEGURO
           maxAge: 24 * 60 * 60 * 1000,
         })
         .exitoMensaje("Logged In");
@@ -18,7 +18,15 @@ class SessionsController {
       return next(error);
     }
   }
-
+  /* CORRECTA CON SEGURO
+ .cookie("token", req.user.token, {
+          signed: true, // ✅ esta es la clave
+          httpOnly: true,
+          sameSite: "none", /// necesario para cross-siteg
+          secure: true, // obligatorio si estás en HTTPS
+          maxAge: 24 * 60 * 60 * 1000,
+        })
+          */
   async online(req, res, next) {
     try {
       if (!req.user) {

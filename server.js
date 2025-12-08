@@ -49,8 +49,8 @@ server.use(
      seguridad*/
     cookie: {
       httpOnly: true,
-      secure: false,
-      sameSite: "lax",
+      secure: false, // 🔹 LOCAL/HTTP para pruebas
+      sameSite: "lax", // 🔹 LOCAL/HTTP
       maxAge: 24 * 60 * 60 * 1000,
     },
   })

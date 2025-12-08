@@ -7,10 +7,10 @@ class SessionsController {
     try {
       return res
         .cookie("token", req.user.token, {
-          signed: true, // ✅ esta es la clave
+          signed: true,
           httpOnly: true,
-          sameSite: "lax", /// necesario para cross-siteg
-          secure: false, // obligatorio si estás en HTTPS SIN SEGURO
+          sameSite: "lax", // 🔹 LOCAL/HTTP
+          secure: false, // 🔹 LOCAL/HTTP
           maxAge: 24 * 60 * 60 * 1000,
         })
         .exitoMensaje("Logged In");

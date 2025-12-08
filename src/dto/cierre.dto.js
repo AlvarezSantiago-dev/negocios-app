@@ -28,14 +28,14 @@ class CierreDTO {
     this.gananciaTotal = Number(data.gananciaTotal ?? 0);
     this.totalVendido = Number(data.totalVendido ?? 0);
 
-    this.cierreHora = data.cierreHora ? new Date(data.cierreHora) : new Date();
+    this.cierreHora = data.cierreHora ?? fechaCompletaArg();
 
     // ⭐⭐ AGREGAR ESTO ⭐⭐
     this.ventas = Array.isArray(data.ventas) ? data.ventas : [];
 
     if (persistence !== "mongo") {
-      this.createdAt = data.createdAt ?? new Date();
-      this.updatedAt = data.updatedAt ?? new Date();
+      this.createdAt = data.createdAt ?? fechaCompletaArg();
+      this.updatedAt = data.updatedAt ?? fechaCompletaArg();
     }
   }
 }

@@ -153,30 +153,33 @@ class CajaController {
         ganancia: Number(v.gananciaTotal),
         metodo: v.metodoPago,
         productos: v.items.map((it) => ({
-          id: String(it.productoId),
-          nombre: it.producto?.nombre ?? "(sin nombre)",
+          id: String(it.productoId?._id),
+          nombre: it.productoId?.nombre ?? "(sin nombre)",
           cantidad: it.cantidad,
           precio: it.precioVenta,
         })),
       }));
 
+      // 👉 Suma correcta de TODAS las aperturas
+      const aperturas = resumen.movimientos.filter(
+        (m) => m.operacion === "apertura"
+      );
+      const aperturaTotal = aperturas.reduce((acc, mov) => acc + mov.monto, 0);
+
       // Total real del cierre
-      const totalReal =
-        ventasReport.totalVendido + resumen.ingresos - resumen.egresos;
+      const totalReal = resumen.ingresos - resumen.egresos;
 
       const cierreData = {
         operacion: "cierre",
         fecha: inicioAR,
-        cierreHora: hoyArg(),
+        cierreHora: fechaCompletaArg(),
         efectivo: resumen.efectivo,
         mp: resumen.mp,
         transferencia: resumen.transferencia,
         totalVendido: ventasReport.totalVendido,
         gananciaTotal: ventasReport.gananciaTotal,
         total: totalReal,
-        apertura:
-          resumen.movimientos.find((m) => m.operacion === "apertura")?.monto ??
-          0,
+        apertura: aperturaTotal, // <-- CORRECTO
         ingresos: resumen.ingresos,
         egresos: resumen.egresos,
         cantidadVentas: ventasDetalladas.length,

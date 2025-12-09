@@ -32,13 +32,20 @@ schema.plugin(mongoosePaginate);
 schema.pre("find", function () {
   this.populate(
     "items.productoId",
-    "nombre tipo precioVenta precioCompra stock -_id"
+    "nombre tipo precioVenta precioCompra stock _id"
   );
 });
+schema.pre("find", function () {
+  this.populate(
+    "items.productoId",
+    "nombre tipo precioVenta precioCompra stock"
+  );
+});
+
 schema.pre("findOne", function () {
   this.populate(
     "items.productoId",
-    "nombre tipo precioVenta precioCompra stock -_id"
+    "nombre tipo precioVenta precioCompra stock"
   );
 });
 

@@ -1,5 +1,7 @@
 import ventasService from "../services/ventas.service.js";
-
+import productsRepository from "../repositories/products.rep.js";
+import ventasRepository from "../repositories/ventas.rep.js";
+import cajaRepository from "../repositories/caja.rep.js";
 class VentasController {
   create = async (req, res, next) => {
     try {
@@ -44,10 +46,37 @@ class VentasController {
   destroy = async (req, res, next) => {
     try {
       const { _id } = req.params;
-      const one = await ventasService.destroyService(_id);
-      return res.exito200(one);
-    } catch (error) {
-      return next(error);
+
+      // Traer venta REAL directamente desde el service
+      const venta = await ventasService.readOneService(_id);
+
+      if (!venta) {
+        return res.status(404).json({ error: "Venta no encontrada" });
+      }
+
+      // RESTAURAR STOCK
+      for (const item of venta.items) {
+        const realProductId = item.productoId._id || item.productoId;
+
+        await productsRepository.modificarStock(realProductId, item.cantidad);
+      }
+
+      // BORRAR MOVIMIENTO DE CAJA
+      const movimiento = await cajaRepository.readOneMovimiento(_id);
+
+      if (movimiento) {
+        await cajaRepository.eliminarMovimiento(movimiento._id);
+      }
+
+      // BORRAR LA VENTA
+      await ventasRepository.destroyRepository(_id);
+
+      return res.json({
+        status: 200,
+        response: "Venta eliminada correctamente",
+      });
+    } catch (err) {
+      next(err);
     }
   };
 
@@ -108,7 +137,7 @@ class VentasController {
   };
   getUltimos7Dias = async (req, res) => {
     try {
-      const ventas = await VentasRepository.ultimos7Dias();
+      const ventas = await ventasRepository.ultimos7Dias();
 
       return res.status(200).send({
         statusCode: 200,

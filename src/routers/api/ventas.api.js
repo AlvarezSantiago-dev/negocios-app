@@ -27,6 +27,7 @@ class VentasRouter extends CustomRouter {
     this.read("/:_id", ["PUBLIC"], readOne);
     this.update("/:_id", ["PUBLIC"], update);
     this.destroy("/:_id", ["PUBLIC"], destroy);
+
     //ventas visualizacion /informes.
     this.read("/informes/ultimos-7-dias", ["PUBLIC"], getUltimos7Dias);
 

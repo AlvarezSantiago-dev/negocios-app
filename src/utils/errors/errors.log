@@ -302,3 +302,16 @@
 [33mERROR[39m: POST  /api/ventas - 8:43:07 AM -Producto no encontrado.
 [33mERROR[39m: POST  /api/products - 8:43:18 AM -Ya existe un producto con ese nombre y tipo
 [33mERROR[39m: POST  /api/products - 8:55:10 AM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: POST  /api/products - 10:38:00 PM -Ya existe un producto con ese nombre y tipo
+[33mERROR[39m: DELETE  /api/ventas/69377d8aaafe7c5c80454fff - 10:43:28 PM -Cast to ObjectId failed for value "{
+  nombre: 'Cerveza Andes Pack 6',
+  tipo: 'pack',
+  precioCompra: 100,
+  precioVenta: 200,
+  stock: 104
+}" (type Object) at path "_id" for model "productos"
+[33mERROR[39m: DELETE  /api/ventas/69377d8aaafe7c5c80454fff - 11:19:09 PM -next is not a function
+[33mERROR[39m: DELETE  /api/ventas/6937f113a0a89e6bb78c47c6 - 7:03:40 AM -Cast to ObjectId failed for value "{ operacion: 'venta', ref: '6937f113a0a89e6bb78c47c6' }" (type Object) at path "_id" for model "caja"
+[33mERROR[39m: DELETE  /api/ventas/6937f113a0a89e6bb78c47c6 - 7:08:16 AM -_id is not defined
+[33mERROR[39m: POST  /api/ventas - 7:19:20 AM -Stock insuficiente para Yerba Mate Playadito. Disponible: 2
+[33mERROR[39m: POST  /api/ventas - 7:24:22 AM -Stock insuficiente para Yerba Mate Playadito. Disponible: 0

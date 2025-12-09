@@ -193,6 +193,14 @@ class ProductsRepository {
       throw error;
     }
   };
+  // productos.repository.js
+  modificarStock = async (productoId, cantidad) => {
+    return await this.model.update(
+      productoId,
+      { $inc: { stock: cantidad } },
+      { new: true }
+    );
+  };
 }
 const productsRepository = new ProductsRepository(products);
 export default productsRepository;

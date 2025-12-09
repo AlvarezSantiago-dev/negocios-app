@@ -159,7 +159,6 @@ class VentasRepository {
         )}T23:59:59.999-03:00`
       );
     }
-
     // Retornar agregación con totales
     const inicioUTC = inicioAR;
     const finUTC = finAR;
@@ -224,9 +223,9 @@ class VentasRepository {
     }
   };
 
-  destroyRepository = async (id) => {
+  destroyRepository = async (_id) => {
     try {
-      return await this.model.destroy(id);
+      return await this.model.destroy(_id);
     } catch (error) {
       throw error;
     }

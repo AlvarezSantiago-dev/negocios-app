@@ -315,3 +315,6 @@
 [33mERROR[39m: DELETE  /api/ventas/6937f113a0a89e6bb78c47c6 - 7:08:16 AM -_id is not defined
 [33mERROR[39m: POST  /api/ventas - 7:19:20 AM -Stock insuficiente para Yerba Mate Playadito. Disponible: 2
 [33mERROR[39m: POST  /api/ventas - 7:24:22 AM -Stock insuficiente para Yerba Mate Playadito. Disponible: 0
+[33mERROR[39m: POST  /api/ventas - 11:06:28 AM -Stock insuficiente para Yerba Mate Playadito. Disponible: 0
+[33mERROR[39m: POST  /api/ventas - 12:53:48 PM -Stock insuficiente para Fideos. Disponible: 0
+[33mERROR[39m: POST  /api/ventas - 7:07:05 PM -Stock insuficiente para Fideos. Disponible: 0

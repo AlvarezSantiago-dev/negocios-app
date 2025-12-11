@@ -17,7 +17,7 @@ const schema = new mongoose.Schema(
       default: "movimiento",
     },
 
-    ref: { type: String, default: null },
+    ref: { type: mongoose.Schema.Types.ObjectId, ref: "ventas", default: null },
     fecha: { type: Date, default: Date.now },
   },
   { timestamps: true }

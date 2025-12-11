@@ -1,7 +1,5 @@
-import ventasService from "../services/ventas.service.js";
-import productsRepository from "../repositories/products.rep.js";
 import ventasRepository from "../repositories/ventas.rep.js";
-import cajaRepository from "../repositories/caja.rep.js";
+import ventasService from "../services/ventas.service.js";
 class VentasController {
   create = async (req, res, next) => {
     try {
@@ -42,41 +40,13 @@ class VentasController {
       return next(error);
     }
   };
-
   destroy = async (req, res, next) => {
     try {
       const { _id } = req.params;
-
-      // Traer venta REAL directamente desde el service
-      const venta = await ventasService.readOneService(_id);
-
-      if (!venta) {
-        return res.status(404).json({ error: "Venta no encontrada" });
-      }
-
-      // RESTAURAR STOCK
-      for (const item of venta.items) {
-        const realProductId = item.productoId._id || item.productoId;
-
-        await productsRepository.modificarStock(realProductId, item.cantidad);
-      }
-
-      // BORRAR MOVIMIENTO DE CAJA
-      const movimiento = await cajaRepository.readOneMovimiento(_id);
-
-      if (movimiento) {
-        await cajaRepository.eliminarMovimiento(movimiento._id);
-      }
-
-      // BORRAR LA VENTA
-      await ventasRepository.destroyRepository(_id);
-
-      return res.json({
-        status: 200,
-        response: "Venta eliminada correctamente",
-      });
-    } catch (err) {
-      next(err);
+      const one = await ventasService.destroyService(_id);
+      return res.exito200(one);
+    } catch (error) {
+      return next(error);
     }
   };
 
@@ -168,13 +138,13 @@ const {
 } = ventasController;
 export {
   create,
-  read,
-  readOne,
   destroy,
-  update,
-  paginate,
   getGanancias,
+  getUltimos7Dias,
   getVentasDiarias,
   getVentasMensuales,
-  getUltimos7Dias,
+  paginate,
+  read,
+  readOne,
+  update,
 };

@@ -5,6 +5,7 @@ import informeDiarioEmail from "../utils/emails/informeDiarioEmail.js";
 import cajaRepository from "../repositories/caja.rep.js";
 import cajaService from "./caja.service.js";
 import { fechaCompletaArg } from "../utils/fecha.js";
+import productsRepository from "../repositories/products.rep.js";
 class VentasService extends Service {
   constructor() {
     super(ventasRepository);
@@ -22,7 +23,7 @@ class VentasService extends Service {
         motivo: "Venta",
         monto: Number(venta.totalVenta ?? 0),
         metodo: venta.metodoPago || data.metodoPago || "efectivo",
-        ref: String(venta._id ?? venta._id?.toString?.() ?? ""),
+        ref: venta._id,
         operacion: "venta",
         fecha: data.fecha ?? fechaCompletaArg(),
       });
@@ -75,6 +76,41 @@ class VentasService extends Service {
   gananciasService = async (data) => {
     return await this.repository.ganancias(data);
   };
+  // src/services/ventas.service.js
+
+  destroyService = async (_id) => {
+    const venta = await ventasRepository.readOneRepository(_id);
+    if (!venta) return null;
+
+    // devolver stock
+    for (const item of venta.items) {
+      await productsRepository.modificarStock(item.productoId, item.cantidad);
+    }
+
+    // eliminar venta
+    return await ventasRepository.destroyRepository(_id);
+  };
+  // src/services/ventas.service.js
+
+  updateService = async (_id, data) => {
+    const ventaAnterior = await ventasRepository.readOneRepository(_id);
+    if (!ventaAnterior) throw new Error("Venta no encontrada");
+
+    // 1) devolver stock anterior
+    for (const item of ventaAnterior.items) {
+      await productsRepository.modificarStock(item.productoId, item.cantidad);
+    }
+
+    // 2) actualizar venta
+    const ventaActualizada = await ventasRepository.updateRepository(_id, data);
+
+    // 3) descontar stock nuevo
+    for (const item of ventaActualizada.items) {
+      await productsRepository.modificarStock(item.productoId, -item.cantidad);
+    }
+
+    return ventaActualizada;
+  };
 }
 
 const ventasService = new VentasService();
@@ -90,4 +126,5 @@ export const {
   gananciasService,
   ventasDiariasService,
   ventasMensualesService,
+  crearVentaConLogica,
 } = ventasService;

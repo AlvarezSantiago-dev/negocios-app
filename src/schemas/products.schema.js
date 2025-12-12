@@ -41,6 +41,7 @@ const productoSchema = joi.object({
 
   // Foto opcional
   foto: joi.string().allow("").optional(),
+  codigoBarras: joi.string().allow("").optional(),
 
   descripcion: joi.string().allow("").optional(),
 });

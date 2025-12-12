@@ -13,11 +13,11 @@ import {
   getByBarcode,
 } from "../../controllers/products.controller.js";
 import validator from "../../middleware/joi.mid.js";
-import productsSchema from "../../schemas/products.schema.js";
+import productoSchema from "../../schemas/products.schema.js";
 class ProductsRouter extends CustomRouter {
   init() {
     this.read("/paginate", ["PUBLIC"], paginate);
-    this.create("/", ["PUBLIC"], validator(productsSchema), create);
+    this.create("/", ["PUBLIC"], validator(productoSchema), create);
     this.read("/:_id", ["PUBLIC"], readOne);
     this.read("/barcode/:codigo", ["PUBLIC"], getByBarcode);
     this.update("/:_id", ["PUBLIC"], update);

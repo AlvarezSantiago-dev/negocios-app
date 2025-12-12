@@ -1,12 +1,13 @@
 import {
   createService,
-  readService,
-  readOneService,
-  updateService,
   destroyService,
+  getByBarcodeService,
+  getByIdService,
   paginateService,
+  readOneService,
+  readService,
+  updateService,
   updateStockService,
-  obtenerPrecioCompraUnitarioService,
 } from "../services/products.service.js";
 class ProductsController {
   create = async (req, res, next) => {
@@ -130,6 +131,37 @@ class ProductsController {
     } catch (error) {
       return next(error);
     }
+  }; /*
+  readByBarcode = async (req, res, next) => {
+    try {
+      const { codigo } = req.params;
+      const one = await readOneService({ codigoBarras: codigo });
+      if (!one) return res.error404("Producto no encontrado");
+      return res.exito200(one);
+    } catch (error) {
+      return next(error);
+    }
+  };
+  */
+  getById = async (req, res) => {
+    try {
+      const prod = await getByIdService(req.params.id);
+      if (!prod) return res.status(404).send({ error: "No encontrado" });
+      res.send({ status: "success", response: prod });
+    } catch (err) {
+      res.status(500).send({ status: "error", error: err.message });
+    }
+  };
+
+  // NUEVO
+  getByBarcode = async (req, res) => {
+    try {
+      const prod = await getByBarcodeService(req.params.codigo);
+
+      res.send({ status: "success", response: prod });
+    } catch (err) {
+      res.status(404).send({ status: "error", error: err.message });
+    }
   };
 }
 const productsController = new ProductsController();
@@ -143,15 +175,19 @@ const {
   adjustStock,
   purchase,
   sell,
+  getByBarcode,
+  getById,
 } = productsController;
 export {
+  adjustStock,
   create,
+  destroy,
+  getByBarcode,
+  getById,
+  paginate,
+  purchase,
   read,
   readOne,
-  update,
-  destroy,
-  paginate,
-  adjustStock,
-  purchase,
   sell,
+  update,
 };

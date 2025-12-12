@@ -201,6 +201,9 @@ class ProductsRepository {
       { new: true }
     );
   };
+  async getByBarcode(code) {
+    return await this.model.Model.findOne({ codigoBarras: code });
+  }
 }
 const productsRepository = new ProductsRepository(products);
 export default productsRepository;

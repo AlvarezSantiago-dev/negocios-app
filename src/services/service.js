@@ -19,6 +19,10 @@ class Service {
       throw error;
     }
   };
+  readByBarcodeRepository(codigo) {
+    return this.model.findOne({ codigoBarras: codigo });
+  }
+
   readOneService = async (_id) => {
     try {
       const one = await this.repository.readOneRepository(_id);

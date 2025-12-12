@@ -24,7 +24,27 @@ const obtenerPrecioCompraUnitarioService = async (productoId) => {
     throw error;
   }
 };
+const getByIdService = async (id) => {
+  return await productsRepository.getById(id);
+};
+
+// NUEVO
+const getByBarcodeService = async (code) => {
+  if (!code || typeof code !== "string") {
+    throw new Error("Código de barras inválido");
+  }
+
+  const prod = await productsRepository.getByBarcode(code);
+  if (!prod) {
+    throw new Error("Producto no encontrado");
+  }
+
+  return prod;
+};
+
 export {
+  getByIdService,
+  getByBarcodeService,
   createService,
   readService,
   readOneService,

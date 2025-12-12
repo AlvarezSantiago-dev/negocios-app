@@ -11,6 +11,8 @@ const schema = new Schema(
   {
     nombre: { type: String, required: true, index: true },
     categoria: { type: String, default: "general", index: true },
+    codigoBarras: { type: String, unique: true, sparse: true },
+
     tipo: {
       type: String,
       enum: ["unitario", "peso", "pack"],

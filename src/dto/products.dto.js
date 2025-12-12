@@ -9,6 +9,7 @@ class ProductoDTO {
       this.createdAt = fechaCompletaArg();
       this.updatedAt = fechaCompletaArg();
     }
+    this.codigoBarras = String(data.codigoBarras);
     this.nombre = String(data.nombre).trim();
     this.categoria = data.categoria ?? "general";
     this.tipo = data.tipo ?? "unitario"; // unitario | peso | pack

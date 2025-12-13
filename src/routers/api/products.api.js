@@ -11,6 +11,7 @@ import {
   purchase,
   sell,
   getByBarcode,
+  generateBarcode,
 } from "../../controllers/products.controller.js";
 import validator from "../../middleware/joi.mid.js";
 import productoSchema from "../../schemas/products.schema.js";
@@ -19,7 +20,7 @@ class ProductsRouter extends CustomRouter {
     this.read("/paginate", ["PUBLIC"], paginate);
     this.create("/", ["PUBLIC"], validator(productoSchema), create);
     this.read("/:_id", ["PUBLIC"], readOne);
-    this.read("/barcode/:codigo", ["PUBLIC"], getByBarcode);
+
     this.update("/:_id", ["PUBLIC"], update);
 
     this.read("/", ["PUBLIC"], read);
@@ -29,6 +30,10 @@ class ProductsRouter extends CustomRouter {
     11;
     this.create("/:_id/purchase", ["PUBLIC"], purchase); // body: { cantidad, unidad }
     this.create("/:_id/sell", ["PUBLIC"], sell); // body: { cantidad,
+    //crearcodigo de barras
+    this.create("/generate-barcode", ["PUBLIC"], generateBarcode);
+    //buscar codigo de barras
+    this.read("/barcode/:codigo", ["PUBLIC"], getByBarcode);
   }
 }
 

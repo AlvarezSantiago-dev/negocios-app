@@ -163,6 +163,11 @@ class ProductsController {
       res.status(404).send({ status: "error", error: err.message });
     }
   };
+  generateBarcode = async (req, res) => {
+    const codigo = `PRD-${Date.now()}`;
+
+    res.json({ codigoBarras: codigo });
+  };
 }
 const productsController = new ProductsController();
 const {
@@ -177,6 +182,7 @@ const {
   sell,
   getByBarcode,
   getById,
+  generateBarcode,
 } = productsController;
 export {
   adjustStock,
@@ -190,4 +196,5 @@ export {
   readOne,
   sell,
   update,
+  generateBarcode,
 };

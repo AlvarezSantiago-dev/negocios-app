@@ -133,7 +133,8 @@ class CajaController {
       const inicioAR = new Date(`${fechaISO}T00:00:00-03:00`);
 
       // Evita cierre duplicado
-      if (await cierreRepository.existeCierreHoy(fechaISO)) {
+      // condicionar anterior if (await cierreRepository.existeCierreHoy(fechaISO)) {
+      if (await cierreRepository.existeCierreActivoHoy(fechaISO)) {
         return res.status(400).json({
           statusCode: 400,
           message: "La caja ya fue cerrada hoy.",
@@ -194,6 +195,37 @@ class CajaController {
     } catch (error) {
       console.error("ERROR cierreCaja:", error);
       return res.status(500).json({ error: error.message });
+    }
+  };
+  anularCierreCaja = async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { motivo } = req.body;
+
+      if (!motivo) {
+        return res.status(400).json({
+          statusCode: 400,
+          message: "Debe indicar un motivo de anulación",
+        });
+      }
+
+      const cierre = await cierreRepository.obtenerPorId(id);
+      if (!cierre) {
+        return res.status(404).json({ message: "Cierre no encontrado" });
+      }
+
+      if (cierre.estado === "anulado") {
+        return res.status(400).json({ message: "El cierre ya está anulado" });
+      }
+
+      const cierreAnulado = await cierreRepository.anularCierre(id, {
+        anuladoPor: req.user?.email ?? "desconocido",
+        anuladoMotivo: motivo,
+      });
+
+      return res.json({ statusCode: 200, response: cierreAnulado });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
     }
   };
 
@@ -279,6 +311,7 @@ const {
   editarMovimiento,
   eliminarMovimiento,
   ultimos7Cierres,
+  anularCierreCaja,
 } = cajaController;
 export {
   aperturaCaja,
@@ -291,4 +324,5 @@ export {
   obtenerMovimientos,
   resumenDelDia,
   ultimos7Cierres,
+  anularCierreCaja,
 };

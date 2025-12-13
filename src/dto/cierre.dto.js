@@ -30,6 +30,10 @@ class CierreDTO {
     this.totalVendido = Number(data.totalVendido ?? 0);
 
     this.cierreHora = data.cierreHora ?? fechaCompletaArg();
+    this.estado = data.estado ?? "activo";
+    this.anuladoPor = data.anuladoPor ?? null;
+    this.anuladoMotivo = data.anuladoMotivo ?? null;
+    this.anuladoAt = data.anuladoAt ?? null;
 
     // ⭐⭐ AGREGAR ESTO ⭐⭐
     this.ventas = Array.isArray(data.ventas) ? data.ventas : [];

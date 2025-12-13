@@ -58,7 +58,8 @@ class CajaRepository {
     );
 
     // 🔹 Determinar si hubo cierre hoy
-    const cierreHoy = await cierreRepository.existeCierreHoy(hoyISO);
+    //resumen... cambio existeCierreHoy por existeCierreActivoHoy.
+    const cierreHoy = await cierreRepository.existeCierreActivoHoy(hoyISO);
 
     // 🔹 Calcular montos por método
     const efectivo = movs
@@ -98,7 +99,7 @@ class CajaRepository {
 
     // Apertura y cierre
     const aperturaHoy = movs.some((m) => m.operacion === "apertura");
-    const cierreHoy = await cierreRepository.existeCierreHoy(fechaISO);
+    const cierreHoy = await cierreRepository.existeCierreActivoHoy(fechaISO);
 
     // Totales por método
     const efectivo = movs

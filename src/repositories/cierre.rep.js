@@ -1,5 +1,6 @@
 import dao from "../data/dao.factory.js";
 import CierreDTO from "../dto/cierre.dto.js";
+import { fechaCompletaArg } from "../utils/fecha.js";
 
 const { cierres } = dao;
 
@@ -15,6 +16,10 @@ class CierreRepository {
   async obtenerCierres() {
     // read() = equivalente correcto de readMany()
     return await this.model.Model.find();
+  }
+  async obtenerPorId(id) {
+    // read() = equivalente correcto de readMany()
+    return await this.model.Model.findById(id);
   }
 
   async obtenerCierrePorFecha(fechaISO) {
@@ -44,6 +49,28 @@ class CierreRepository {
     })
       .sort({ fecha: -1 })
       .lean();
+  }
+  //nuevas 2 funciones.
+  async existeCierreActivoHoy(fechaISO) {
+    const inicio = new Date(`${fechaISO}T00:00:00.000-03:00`);
+    const fin = new Date(`${fechaISO}T23:59:59.999-03:00`);
+
+    return await this.model.Model.exists({
+      fecha: { $gte: inicio, $lte: fin },
+      estado: "activo",
+    });
+  }
+  async anularCierre(id, data) {
+    return await this.model.Model.findByIdAndUpdate(
+      id,
+      {
+        estado: "anulado",
+        anuladoPor: data.anuladoPor,
+        anuladoMotivo: data.anuladoMotivo,
+        anuladoAt: fechaCompletaArg(),
+      },
+      { new: true }
+    );
   }
 }
 

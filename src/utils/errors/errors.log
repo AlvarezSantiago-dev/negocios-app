@@ -323,3 +323,6 @@
 [33mERROR[39m: POST  /api/products - 8:47:47 AM -"codigoBarra" is not allowed
 [33mERROR[39m: POST  /api/products - 8:48:02 AM -Ya existe un producto con ese nombre y tipo
 [33mERROR[39m: POST  /api/products - 8:48:31 AM -CODIGO_BARRAS_DUPLICADO
+[33mERROR[39m: POST  /api/ventas - 7:09:25 PM -Stock insuficiente para Fideos. Disponible: 0
+[33mERROR[39m: POST  /api/ventas - 7:09:56 PM -Stock insuficiente para Yerba Mate Playadito. Disponible: 1
+[33mERROR[39m: POST  /api/ventas - 7:52:38 PM -Stock insuficiente para Yerba Mate Playadito. Disponible: 1

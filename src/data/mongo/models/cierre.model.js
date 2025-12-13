@@ -45,6 +45,15 @@ const cierreSchema = new Schema(
 
     usuario: { type: String, default: "" },
     cierreHora: { type: Date, default: null },
+    estado: {
+      type: String,
+      enum: ["activo", "anulado"],
+      default: "activo",
+    },
+
+    anuladoPor: { type: String, default: null },
+    anuladoMotivo: { type: String, default: null },
+    anuladoAt: { type: Date, default: null },
   },
   { timestamps: true }
 );

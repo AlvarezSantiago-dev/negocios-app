@@ -2,18 +2,18 @@
 
 // src/routers/caja.router.js
 import {
+  anularCierreCaja,
   aperturaCaja,
   cierreCaja,
   crearMovimiento,
+  editarMovimiento,
+  eliminarMovimiento,
   historialCierres,
   obtenerBalance,
   obtenerMovimientos,
   resumenDelDia,
-  editarMovimiento,
-  eliminarMovimiento,
   ultimos7Cierres,
 } from "../../controllers/caja.controller.js";
-import cierreRepository from "../../repositories/cierre.rep.js";
 import CustomRouter from "../CustomRouter.js";
 class CajaRouter extends CustomRouter {
   init() {
@@ -28,6 +28,9 @@ class CajaRouter extends CustomRouter {
     this.update("/movimiento/:id", ["PUBLIC"], editarMovimiento);
     this.destroy("/movimiento/:id", ["PUBLIC"], eliminarMovimiento);
     this.read("/cierres/ultimos7", ["PUBLIC"], ultimos7Cierres);
+
+    //anular cierre
+    this.update("/cierre/:id/anular", ["PUBLIC"], anularCierreCaja);
   }
 }
 

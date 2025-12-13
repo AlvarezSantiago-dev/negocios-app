@@ -45,9 +45,17 @@ class ProductsController {
       const one = await updateService(_id, data);
       return res.exito200(one);
     } catch (error) {
+      if (error.message === "CODIGO_BARRAS_DUPLICADO") {
+        return res.error400("El código de barras ya existe");
+      }
+      if (error.code === 11000 && error.keyPattern?.codigoBarras) {
+        return res.error400("El código de barras ya existe");
+      }
+
       return next(error);
     }
   };
+
   destroy = async (req, res, next) => {
     try {
       const { _id } = req.params;

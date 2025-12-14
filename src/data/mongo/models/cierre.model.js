@@ -59,7 +59,10 @@ const cierreSchema = new Schema(
 );
 
 // 🔹 ÍNDICE: evita dos cierres para la misma fecha
-cierreSchema.index({ fecha: 1 }, { unique: true });
+cierreSchema.index(
+  { fecha: 1, estado: 1 },
+  { unique: true, partialFilterExpression: { estado: "activo" } }
+);
 
 const Cierre = model(collection, cierreSchema);
 export default Cierre;

@@ -62,7 +62,7 @@ class CajaController {
     try {
       const { efectivo = 0, mp = 0, transferencia = 0 } = req.body;
 
-      const hoyAR = fechaCompletaArg();
+      const hoyAR = new Date();
       const fechaISO = hoyAR.toISOString().slice(0, 10);
       const resumen = await cajaService.resumenDelDiaService(fechaISO);
       const yaAbrio = resumen.movimientos.some(
@@ -149,7 +149,7 @@ class CajaController {
 
       const ventasDetalladas = ventasReport.ventas.map((v) => ({
         idVenta: String(v._id),
-        hora: fechaCompletaArg(),
+        hora: new Date(),
         total: Number(v.totalVenta),
         ganancia: Number(v.gananciaTotal),
         metodo: v.metodoPago,
@@ -173,7 +173,7 @@ class CajaController {
       const cierreData = {
         operacion: "cierre",
         fecha: inicioAR,
-        cierreHora: fechaCompletaArg(),
+        cierreHora: new Date(),
         efectivo: resumen.efectivo,
         mp: resumen.mp,
         transferencia: resumen.transferencia,

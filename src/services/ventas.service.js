@@ -25,7 +25,7 @@ class VentasService extends Service {
         metodo: venta.metodoPago || data.metodoPago || "efectivo",
         ref: venta._id,
         operacion: "venta",
-        fecha: data.fecha ?? fechaCompletaArg(),
+        fecha: data.fecha ?? new Date(),
       });
     } catch (err) {
       // loguear y seguir: la venta ya fue registrada y el error de caja no debe eliminarla automáticamente.

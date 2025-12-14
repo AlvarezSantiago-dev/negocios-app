@@ -41,7 +41,7 @@ class ProductsRepository {
               : 1),
           tipo: dto.tipo,
           precioCompraUnitario: dto.precioCompra,
-          fecha: fechaCompletaArg(),
+          fecha: new Date(),
         });
         dto.stock =
           (dto.stock ?? 0) +

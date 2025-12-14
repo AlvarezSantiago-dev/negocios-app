@@ -11,7 +11,7 @@ class CierreDTO {
 
     this.operacion = "cierre";
 
-    this.fecha = data.fecha ?? fechaCompletaArg();
+    this.fecha = data.fecha ?? new Date();
 
     this.efectivo = Number(data.efectivo ?? 0);
     this.mp = Number(data.mp ?? 0);
@@ -29,7 +29,7 @@ class CierreDTO {
     this.gananciaNeta = Number(data.gananciaNeta ?? 0);
     this.totalVendido = Number(data.totalVendido ?? 0);
 
-    this.cierreHora = data.cierreHora ?? fechaCompletaArg();
+    this.cierreHora = data.cierreHora ?? new Date();
     this.estado = data.estado ?? "activo";
     this.anuladoPor = data.anuladoPor ?? null;
     this.anuladoMotivo = data.anuladoMotivo ?? null;
@@ -39,8 +39,8 @@ class CierreDTO {
     this.ventas = Array.isArray(data.ventas) ? data.ventas : [];
 
     if (persistence !== "mongo") {
-      this.createdAt = data.createdAt ?? fechaCompletaArg();
-      this.updatedAt = data.updatedAt ?? fechaCompletaArg();
+      this.createdAt = data.createdAt ?? new Date();
+      this.updatedAt = data.updatedAt ?? new Date();
     }
   }
 }

@@ -14,11 +14,11 @@ class CompraDTO {
     this.cantidad = data.cantidad || 1;
     this.precioCompra = data.precioCompra || 0;
     this.proveedor = data.proveedor || "desconocido";
-    this.fecha = data.fecha || fechaCompletaArg();
+    this.fecha = data.fecha || new Date();
 
     if (persistence !== "mongo") {
-      this.createdAt = fechaCompletaArg();
-      this.updatedAt = fechaCompletaArg();
+      this.createdAt = new Date();
+      this.updatedAt = new Date();
     }
   }
 }

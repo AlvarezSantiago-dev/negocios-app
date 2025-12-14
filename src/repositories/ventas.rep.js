@@ -88,7 +88,7 @@ class VentasRepository {
         metodoPago: data.metodoPago || "efectivo",
         totalVenta,
         gananciaTotal,
-        fecha: data.fecha ?? fechaCompletaArg(),
+        fecha: data.fecha ?? new Date(),
       });
 
       // crear venta

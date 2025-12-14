@@ -29,7 +29,7 @@ class CajaService extends Service {
       metodo: data.metodo,
       ref: data.ref ?? null,
       operacion: data.operacion ?? "movimiento",
-      fecha: data.fecha ?? fechaCompletaArg(),
+      fecha: data.fecha ?? new Date(),
       detalleCierre: data.detalleCierre ?? undefined,
     };
 

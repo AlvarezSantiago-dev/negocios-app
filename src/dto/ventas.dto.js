@@ -17,11 +17,11 @@ class VentaDTO {
     this.gananciaTotal = Number(data.gananciaTotal ?? 0);
 
     // Aseguramos que la fecha sea un objeto Date
-    this.fecha = data.fecha ?? fechaCompletaArg();
+    this.fecha = data.fecha ?? new Date();
 
     if (persistence !== "mongo") {
-      this.createdAt = data.createdAt ?? fechaCompletaArg();
-      this.updatedAt = data.updatedAt ?? fechaCompletaArg();
+      this.createdAt = data.createdAt ?? new Date();
+      this.updatedAt = data.updatedAt ?? new Date();
     }
   }
 }

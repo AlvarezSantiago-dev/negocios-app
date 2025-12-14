@@ -6,8 +6,8 @@ class ProductoDTO {
   constructor(data = {}) {
     if (persistence !== "mongo") {
       this._id = crypto.randomBytes(12).toString("hex");
-      this.createdAt = fechaCompletaArg();
-      this.updatedAt = fechaCompletaArg();
+      this.createdAt = new Date();
+      this.updatedAt = new Date();
     }
     this.codigoBarras = String(data.codigoBarras);
     this.nombre = String(data.nombre).trim();
@@ -39,8 +39,8 @@ class ProductoDTO {
       ? data.historialCompras
       : [];
     if (persistence !== "mongo") {
-      this.createdAt = data.createdAt ?? fechaCompletaArg();
-      this.updatedAt = data.updatedAt ?? fechaCompletaArg();
+      this.createdAt = data.createdAt ?? new Date();
+      this.updatedAt = data.updatedAt ?? new Date();
     }
   }
 }

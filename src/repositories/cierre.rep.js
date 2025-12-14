@@ -67,7 +67,7 @@ class CierreRepository {
         estado: "anulado",
         anuladoPor: data.anuladoPor,
         anuladoMotivo: data.anuladoMotivo,
-        anuladoAt: fechaCompletaArg(),
+        anuladoAt: new Date(),
       },
       { new: true }
     );

@@ -18,7 +18,7 @@ class ProductsManager extends Manager {
 
     producto.historialPrecios.push({
       precioCompra,
-      fecha: fechaCompletaArg(),
+      fecha: new Date(),
     });
 
     await producto.save();

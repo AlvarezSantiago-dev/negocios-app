@@ -8,8 +8,8 @@ class UsuarioDTO {
   constructor(data) {
     if (persistence !== "mongo") {
       this._id = crypto.randomBytes(12).toString("hex");
-      this.createdAt = fechaCompletaArg();
-      this.updatedAt = fechaCompletaArg();
+      this.createdAt = new Date();
+      this.updatedAt = new Date();
     }
     this.nombre = data.nombre;
     this.email = data.email;

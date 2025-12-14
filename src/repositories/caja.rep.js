@@ -191,6 +191,12 @@ class CajaRepository {
       throw new Error("Error al editar movimiento: " + error.message);
     }
   }
+  async eliminarPorRefVenta(idVenta) {
+    return this.model.Model.deleteOne({
+      ref: idVenta,
+      operacion: "venta",
+    });
+  }
 }
 
 const cajaRepository = new CajaRepository(caja);

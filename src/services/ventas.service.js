@@ -82,14 +82,18 @@ class VentasService extends Service {
     const venta = await ventasRepository.readOneRepository(_id);
     if (!venta) return null;
 
-    // devolver stock
+    // 1) devolver stock
     for (const item of venta.items) {
       await productsRepository.modificarStock(item.productoId, item.cantidad);
     }
 
-    // eliminar venta
+    // 2) borrar movimiento de caja asociado
+    await cajaRepository.eliminarPorRefVenta(_id);
+
+    // 3) borrar venta
     return await ventasRepository.destroyRepository(_id);
   };
+
   // src/services/ventas.service.js
 
   updateService = async (_id, data) => {

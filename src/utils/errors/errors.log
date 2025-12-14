@@ -326,3 +326,4 @@
 [33mERROR[39m: POST  /api/ventas - 7:09:25 PM -Stock insuficiente para Fideos. Disponible: 0
 [33mERROR[39m: POST  /api/ventas - 7:09:56 PM -Stock insuficiente para Yerba Mate Playadito. Disponible: 1
 [33mERROR[39m: POST  /api/ventas - 7:52:38 PM -Stock insuficiente para Yerba Mate Playadito. Disponible: 1
+[33mERROR[39m: DELETE  /api/ventas/693ec221dd4fabc647d9aa3b - 10:57:33 AM -Cast to ObjectId failed for value "{ ref: '693ec221dd4fabc647d9aa3b', operacion: 'venta' }" (type Object) at path "_id" for model "caja"

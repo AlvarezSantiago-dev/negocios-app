@@ -150,34 +150,17 @@ class CajaService extends Service {
   }
 
   async eliminarMovimientoService(id) {
-    // 1) Traer movimiento REAL por ID
     const mov = await cajaRepository.obtenerMovimientoPorId(id);
     if (!mov) throw new Error("Movimiento no encontrado");
 
-    // 2) Si NO es venta → borrado normal
-    if (mov.operacion !== "venta") {
-      return await cajaRepository.eliminarMovimientoPorId(id);
+    if (mov.operacion === "venta") {
+      throw new Error("No se puede eliminar un movimiento de venta");
     }
 
-    // 3) Si ES una venta → eliminar venta + devolver stock
-    const idVenta = mov.ref;
-
-    const venta = await ventasRepository.readOneRepository(idVenta);
-
-    if (!venta) {
-      // venta ya eliminada: borro movimiento igual
-      return await cajaRepository.eliminarMovimientoPorId(id);
+    if (mov.operacion === "apertura" || mov.operacion === "cierre") {
+      throw new Error("No se puede eliminar apertura o cierre");
     }
 
-    // 4) Devolver stock de la venta
-    for (const item of venta.items) {
-      await productsRepository.modificarStock(item.productoId, item.cantidad);
-    }
-
-    // 5) Borrar venta
-    await ventasRepository.destroyRepository(idVenta);
-
-    // 6) Borrar movimiento
     return await cajaRepository.eliminarMovimientoPorId(id);
   }
 }

@@ -41,7 +41,8 @@ class VentasService extends Service {
       const { default: ticketService } = await import(
         "../services/ticket.service.js"
       );
-
+      // 🔴 ESTA ES LA LÍNEA CLAVE
+      await venta.populate("items.productoId", "nombre");
       const ticketUrl = ticketService.generarTicketVenta(venta);
 
       venta.ticketUrl = ticketUrl;

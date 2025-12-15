@@ -1,7 +1,8 @@
 import argsUtil from "../utils/args.util.js";
 import crypto from "crypto";
-import { fechaCompletaArg } from "../utils/fecha.js";
+
 const persistence = argsUtil.persistence;
+
 class ProductoDTO {
   constructor(data = {}) {
     if (persistence !== "mongo") {
@@ -9,41 +10,41 @@ class ProductoDTO {
       this.createdAt = new Date();
       this.updatedAt = new Date();
     }
-    this.codigoBarras = String(data.codigoBarras);
+
+    this.codigoBarras = data.codigoBarras
+      ? String(data.codigoBarras)
+      : undefined;
+
     this.nombre = String(data.nombre).trim();
     this.categoria = data.categoria ?? "general";
-    this.tipo = data.tipo ?? "unitario"; // unitario | peso | pack
-    if (this.tipo === "pack") {
-      this.unidadPorPack = Number(data.unidadPorPack);
-      this.precioCompraPack = Number(data.precioCompraPack);
-      this.precioCompra =
-        this.unidadPorPack > 0 ? this.precioCompraPack / this.unidadPorPack : 0;
-      this.precioVenta = Number(data.precioVenta ?? 0);
-    } else if (this.tipo === "peso") {
-      this.precioCompra = Number(data.precioCompra ?? 0);
-      this.precioVenta = Number(data.precioVenta ?? 0);
-      this.unidadPorPack = undefined;
-      this.precioCompraPack = undefined;
-    } else {
-      this.precioCompra = Number(data.precioCompra ?? 0);
-      this.precioVenta = Number(data.precioVenta ?? 0);
-      this.unidadPorPack = undefined;
-      this.precioCompraPack = undefined;
-    }
-    // stock stored as UNITS
+
+    // 🔒 solo unitario o peso
+    this.tipo = data.tipo ?? "unitario";
+
+    this.precioCompra = Number(data.precioCompra ?? 0);
+    this.precioVenta = Number(data.precioVenta ?? 0);
+
+    // packs configurables
+    this.packs = Array.isArray(data.packs)
+      ? data.packs.map((p) => ({
+          unidades: Number(p.unidades),
+          precioVentaPack: Number(p.precioVentaPack),
+        }))
+      : [];
+
     this.stock = Number(data.stock ?? 0);
+    this.stockMinimo = Number(data.stockMinimo ?? 0);
+
     this.foto = data.foto ?? "";
     this.descripcion = data.descripcion ?? "";
-    this.stockMinimo = Number(data.stockMinimo ?? 0);
-    this.historialCompras = Array.isArray(data.historialCompras)
-      ? data.historialCompras
-      : [];
+
     if (persistence !== "mongo") {
       this.createdAt = data.createdAt ?? new Date();
       this.updatedAt = data.updatedAt ?? new Date();
     }
   }
 }
+
 export default ProductoDTO;
 
 /*

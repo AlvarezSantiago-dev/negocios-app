@@ -15,27 +15,27 @@ const schema = new Schema(
 
     tipo: {
       type: String,
-      enum: ["unitario", "peso", "pack"],
+      enum: ["unitario", "peso"],
       default: "unitario",
     },
-    // para tipo pack
-    unidadPorPack: { type: Number, default: 1 },
-    precioCompraPack: { type: Number, default: 0 }, // costo por pack (si aplica)
-    // precios / stock normalizados (precio por unidad o por kilo)
-    precioCompra: { type: Number, required: true, default: 0 }, // precio unitario o por kilo
-    precioVenta: { type: Number, required: true, default: 0 }, // precio unitario o por kilo
-    stock: { type: Number, default: 0 }, // en unidades o en kilos según tipo
-    foto: { type: String, default: "" },
-    descripcion: { type: String, default: "" },
-    historialCompras: [
+
+    // precios base
+    precioCompra: { type: Number, required: true, default: 0 },
+    precioVenta: { type: Number, required: true, default: 0 },
+
+    // packs configurables
+    packs: [
       {
-        cantidad: Number,
-        tipo: String, // "pack"|"unidad"|"peso"
-        precioCompraUnitario: Number,
-        fecha: { type: Date, default: Date.now },
+        unidades: { type: Number, required: true },
+        precioVentaPack: { type: Number, required: true },
       },
     ],
+
+    stock: { type: Number, default: 0 },
     stockMinimo: { type: Number, default: 0 },
+
+    foto: { type: String, default: "" },
+    descripcion: { type: String, default: "" },
   },
   { timestamps: true }
 );

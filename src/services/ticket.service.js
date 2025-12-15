@@ -10,6 +10,7 @@ class TicketService {
     const fileName = `venta_${venta._id}.pdf`;
     const filePath = path.join(dir, fileName);
 
+    // Ancho de 80mm (con 1mm = 2.83px, es decir, 80mm = 226px)
     const doc = new PDFDocument({
       size: [226, 600],
       margin: 10,
@@ -17,38 +18,42 @@ class TicketService {
 
     doc.pipe(fs.createWriteStream(filePath));
 
-    doc.fontSize(12).text("NEGOCIO X", { align: "center" });
-    doc.fontSize(8).text("------------------------", { align: "center" });
+    // Título en grande y centralizado
+    doc.fontSize(14).text("NEGOCIO X", { align: "center" });
+    doc
+      .fontSize(10)
+      .text("-------------------------------", { align: "center" });
 
     doc.moveDown(0.5);
     doc.text(`Fecha: ${new Date(venta.fecha).toLocaleString("es-AR")}`);
     doc.text(`Pago: ${venta.metodoPago}`);
 
     doc.moveDown(0.5);
-    doc.text("------------------------");
+    doc.text("-------------------------------");
 
+    // Detalle de productos
     venta.items.forEach((i) => {
       doc.moveDown(0.3);
-
       const nombre = i.productoId?.nombre ?? "Producto";
-      doc.text(nombre);
+      doc.text(`${nombre} x${i.cantidad}`, { align: "left" });
 
-      doc.text(`${i.cantidad} x $${i.precioVenta.toLocaleString("es-AR")}`);
+      doc.text(`$${i.precioVenta.toLocaleString("es-AR")}`, { align: "right" });
 
       doc.text(`$${i.subtotal.toLocaleString("es-AR")}`, { align: "right" });
     });
 
     doc.moveDown(0.5);
-    doc.text("------------------------");
+    doc.text("-------------------------------");
 
+    // Total
     doc
-      .fontSize(10)
+      .fontSize(12)
       .text(`TOTAL: $${venta.totalVenta.toLocaleString("es-AR")}`, {
         align: "right",
       });
 
-    doc.moveDown();
-    doc.fontSize(8).text("Gracias por su compra", { align: "center" });
+    doc.moveDown(0.5);
+    doc.text("Gracias por su compra", { align: "center" });
 
     doc.end();
 

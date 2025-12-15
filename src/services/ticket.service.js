@@ -10,50 +10,74 @@ class TicketService {
     const fileName = `venta_${venta._id}.pdf`;
     const filePath = path.join(dir, fileName);
 
-    // Ancho de 80mm (con 1mm = 2.83px, es decir, 80mm = 226px)
+    // 80mm ≈ 226pt
     const doc = new PDFDocument({
-      size: [226, 600],
-      margin: 10,
+      size: [226, 700],
+      margins: {
+        top: 10,
+        left: 10,
+        right: 10,
+        bottom: 10,
+      },
     });
 
     doc.pipe(fs.createWriteStream(filePath));
 
-    // Título en grande y centralizado
-    doc.fontSize(14).text("NEGOCIO X", { align: "center" });
-    doc
-      .fontSize(10)
-      .text("-------------------------------", { align: "center" });
+    /* ---------------- HEADER ---------------- */
+    doc.fontSize(13).text("NEGOCIO X", { align: "center" });
+    doc.moveDown(0.2);
+    doc.fontSize(8).text("Venta al público", { align: "center" });
 
-    doc.moveDown(0.5);
-    doc.text(`Fecha: ${new Date(venta.fecha).toLocaleString("es-AR")}`);
+    doc.moveDown(0.4);
+    doc.fontSize(8).text("────────────────────────");
+
+    const fecha = new Date(venta.fecha).toLocaleString("es-AR", {
+      timeZone: "America/Argentina/Buenos_Aires",
+    });
+
+    doc.text(`Fecha: ${fecha}`);
     doc.text(`Pago: ${venta.metodoPago}`);
 
-    doc.moveDown(0.5);
-    doc.text("-------------------------------");
+    doc.moveDown(0.4);
+    doc.text("────────────────────────");
 
-    // Detalle de productos
+    /* ---------------- ITEMS ---------------- */
     venta.items.forEach((i) => {
-      doc.moveDown(0.3);
       const nombre = i.productoId?.nombre ?? "Producto";
-      doc.text(`${nombre} x${i.cantidad}`, { align: "left" });
 
-      doc.text(`$${i.precioVenta.toLocaleString("es-AR")}`, { align: "right" });
+      doc.moveDown(0.3);
+
+      // Nombre del producto (legible)
+      doc.fontSize(9).text(nombre, {
+        width: 200,
+      });
+
+      // Detalle
+      doc
+        .fontSize(8)
+        .text(`${i.cantidad} x $${i.precioVenta.toLocaleString("es-AR")}`, {
+          continued: true,
+        });
 
       doc.text(`$${i.subtotal.toLocaleString("es-AR")}`, { align: "right" });
     });
 
-    doc.moveDown(0.5);
-    doc.text("-------------------------------");
+    /* ---------------- TOTAL ---------------- */
+    doc.moveDown(0.4);
+    doc.fontSize(8).text("────────────────────────");
 
-    // Total
+    doc.moveDown(0.2);
     doc
-      .fontSize(12)
+      .fontSize(11)
       .text(`TOTAL: $${venta.totalVenta.toLocaleString("es-AR")}`, {
         align: "right",
       });
 
-    doc.moveDown(0.5);
-    doc.text("Gracias por su compra", { align: "center" });
+    /* ---------------- FOOTER ---------------- */
+    doc.moveDown(0.6);
+    doc.fontSize(8).text("Gracias por su compra", { align: "center" });
+    doc.moveDown(0.2);
+    doc.text("Conserve este ticket", { align: "center" });
 
     doc.end();
 

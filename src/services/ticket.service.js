@@ -13,23 +13,17 @@ class TicketService {
     // 80mm ≈ 226pt
     const doc = new PDFDocument({
       size: [226, 700],
-      margins: {
-        top: 10,
-        left: 10,
-        right: 10,
-        bottom: 10,
-      },
+      margin: 10,
     });
 
     doc.pipe(fs.createWriteStream(filePath));
 
-    /* ---------------- HEADER ---------------- */
+    /* ===== HEADER ===== */
     doc.fontSize(13).text("NEGOCIO X", { align: "center" });
-    doc.moveDown(0.2);
     doc.fontSize(8).text("Venta al público", { align: "center" });
 
-    doc.moveDown(0.4);
-    doc.fontSize(8).text("────────────────────────");
+    doc.moveDown(0.3);
+    doc.fontSize(8).text("------------------------");
 
     const fecha = new Date(venta.fecha).toLocaleString("es-AR", {
       timeZone: "America/Argentina/Buenos_Aires",
@@ -38,21 +32,16 @@ class TicketService {
     doc.text(`Fecha: ${fecha}`);
     doc.text(`Pago: ${venta.metodoPago}`);
 
-    doc.moveDown(0.4);
-    doc.text("────────────────────────");
+    doc.moveDown(0.3);
+    doc.text("------------------------");
 
-    /* ---------------- ITEMS ---------------- */
+    /* ===== ITEMS ===== */
     venta.items.forEach((i) => {
-      const nombre = i.productoId?.nombre ?? "Producto";
+      const nombre = i.nombre || i.productoId?.nombre || "Producto";
 
-      doc.moveDown(0.3);
+      doc.moveDown(0.2);
+      doc.fontSize(9).text(nombre);
 
-      // Nombre del producto (legible)
-      doc.fontSize(9).text(nombre, {
-        width: 200,
-      });
-
-      // Detalle
       doc
         .fontSize(8)
         .text(`${i.cantidad} x $${i.precioVenta.toLocaleString("es-AR")}`, {
@@ -62,21 +51,19 @@ class TicketService {
       doc.text(`$${i.subtotal.toLocaleString("es-AR")}`, { align: "right" });
     });
 
-    /* ---------------- TOTAL ---------------- */
-    doc.moveDown(0.4);
-    doc.fontSize(8).text("────────────────────────");
+    /* ===== TOTAL ===== */
+    doc.moveDown(0.3);
+    doc.fontSize(8).text("------------------------");
 
-    doc.moveDown(0.2);
     doc
       .fontSize(11)
       .text(`TOTAL: $${venta.totalVenta.toLocaleString("es-AR")}`, {
         align: "right",
       });
 
-    /* ---------------- FOOTER ---------------- */
-    doc.moveDown(0.6);
+    /* ===== FOOTER ===== */
+    doc.moveDown(0.5);
     doc.fontSize(8).text("Gracias por su compra", { align: "center" });
-    doc.moveDown(0.2);
     doc.text("Conserve este ticket", { align: "center" });
 
     doc.end();

@@ -12,90 +12,112 @@ class VentasRepository {
 
   // data: { items: [{ productoId, cantidad, precioVenta? }], metodoPago?, fecha? }
   createRepository = async (data) => {
-    try {
-      const items = data.items;
-      if (!Array.isArray(items) || items.length === 0) {
-        throw new Error("La venta debe tener al menos un producto.");
+    const items = data.items;
+    const round2 = (n) => Math.round(n * 100) / 100;
+
+    if (!Array.isArray(items) || items.length === 0) {
+      throw new Error("La venta debe tener al menos un producto.");
+    }
+
+    let totalVenta = 0;
+    let gananciaTotal = 0;
+    const procesados = [];
+
+    for (const it of items) {
+      const producto = await productos.readOne(it.productoId);
+      if (!producto) {
+        throw new Error("Producto no encontrado.");
       }
 
-      let totalVenta = 0;
-      let gananciaTotal = 0;
-      const procesados = [];
+      const cantidad = Number(it.cantidad);
+      if (!Number.isFinite(cantidad) || cantidad <= 0) {
+        throw new Error("Cantidad inválida.");
+      }
 
-      for (const it of items) {
-        const producto = await productos.readOne(it.productoId);
-        if (!producto) throw new Error("Producto no encontrado.");
-
-        // precio compra unitario
-        let precioCompraUnit = producto.precioCompra ?? 0;
-
-        if (
-          producto.tipo === "pack" &&
-          producto.precioCompraPack &&
-          producto.unidadPorPack > 0
-        ) {
-          precioCompraUnit = producto.precioCompraPack / producto.unidadPorPack;
-        }
-
-        // precio venta unitario
-        const precioVentaUnit =
-          typeof it.precioVenta === "number"
-            ? it.precioVenta
-            : producto.precioVenta ?? 0;
-
-        const cantidad = Number(it.cantidad);
-        if (!Number.isFinite(cantidad) || cantidad <= 0) {
-          throw new Error("Cantidad inválida para un producto.");
-        }
-
-        // verificar stock
+      // ------------------------------
+      // VALIDACIÓN STOCK (NO PESO)
+      // ------------------------------
+      if (producto.tipo !== "peso") {
         if (producto.stock < cantidad) {
           throw new Error(
             `Stock insuficiente para ${producto.nombre}. Disponible: ${producto.stock}`
           );
         }
+      }
 
-        // descontar stock (actualiza producto)
+      // ------------------------------
+      // PRECIO VENTA UNITARIO
+      // ------------------------------
+      let precioVentaUnit = producto.precioVenta;
+
+      // Packs automáticos
+      if (Array.isArray(producto.packs) && producto.packs.length > 0) {
+        const pack = producto.packs.find(
+          (p) => Number(p.unidades) === cantidad
+        );
+
+        if (pack) {
+          precioVentaUnit = pack.precioVentaPack / cantidad;
+        }
+      }
+
+      // ------------------------------
+      // PRECIO COMPRA UNITARIO
+      // ------------------------------
+      const precioCompraUnit = producto.precioCompra ?? 0;
+
+      // ------------------------------
+      // DESCONTAR STOCK
+      // ------------------------------
+      if (producto.tipo !== "peso") {
         await productos.update(producto._id, {
           stock: producto.stock - cantidad,
         });
-
-        // cálculos
-        const subtotal = precioVentaUnit * cantidad;
-        const ganancia = (precioVentaUnit - precioCompraUnit) * cantidad;
-
-        totalVenta += subtotal;
-        gananciaTotal += ganancia;
-
-        procesados.push({
-          productoId: producto._id,
-          cantidad,
-          precioCompra: precioCompraUnit,
-          precioVenta: precioVentaUnit,
-          subtotal,
-        });
       }
 
-      // Forzar guardar fecha en zona horaria Argentina (evita desajustes UTC)
-      const fechaAR = new Date(
-        new Date().toLocaleString("en-US", {
-          timeZone: "America/Argentina/Buenos_Aires",
-        })
+      // ------------------------------
+      // CÁLCULOS
+      // ------------------------------
+      const precioVentaUnitFinal = round2(precioVentaUnit);
+      const precioCompraUnitFinal = round2(precioCompraUnit);
+
+      const subtotal = round2(precioVentaUnitFinal * cantidad);
+      const ganancia = round2(
+        (precioVentaUnitFinal - precioCompraUnitFinal) * cantidad
       );
 
-      const ventaDTO = new VentaDTO({
-        items: procesados,
-        metodoPago: data.metodoPago || "efectivo",
-        totalVenta,
-        gananciaTotal,
-        fecha: data.fecha ?? new Date(),
-      });
+      totalVenta = round2(totalVenta + subtotal);
+      gananciaTotal = round2(gananciaTotal + ganancia);
 
-      // crear venta
-      return await this.model.create(ventaDTO);
-    } catch (error) {
-      throw error;
+      procesados.push({
+        productoId: producto._id,
+        cantidad,
+        precioVenta: precioVentaUnitFinal,
+        precioCompra: precioCompraUnitFinal,
+        subtotal,
+      });
     }
+
+    // ------------------------------
+    // FECHA ARGENTINA
+    // ------------------------------
+    const fechaAR = data.fecha
+      ? new Date(data.fecha)
+      : new Date(
+          new Date().toLocaleString("en-US", {
+            timeZone: "America/Argentina/Buenos_Aires",
+          })
+        );
+
+    const ventaDTO = new VentaDTO({
+      items: procesados,
+      metodoPago: data.metodoPago || "efectivo",
+      totalVenta,
+      gananciaTotal,
+      fecha: fechaAR,
+    });
+
+    return await this.model.create(ventaDTO);
   };
 
   // 📌 Ventas del día

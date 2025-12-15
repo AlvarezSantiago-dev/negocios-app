@@ -329,3 +329,6 @@
 [33mERROR[39m: DELETE  /api/ventas/693ec221dd4fabc647d9aa3b - 10:57:33 AM -Cast to ObjectId failed for value "{ ref: '693ec221dd4fabc647d9aa3b', operacion: 'venta' }" (type Object) at path "_id" for model "caja"
 [33mERROR[39m: POST  /api/ventas - 3:52:12 PM -"items[0].precioUnitarioAplicado" is not allowed,"items[0].tipoVenta" is not allowed
 [33mERROR[39m: POST  /api/ventas - 3:56:19 PM -"items[0].tipoVenta" must be a number
+[33mERROR[39m: POST  /api/ventas - 6:57:39 PM -"items[0].precioUnitarioAplicado" is not allowed,"items[0].tipoVenta" is not allowed
+[33mERROR[39m: POST  /api/ventas - 6:57:49 PM -"items[0].tipoVenta" is not allowed
+[33mERROR[39m: POST  /api/ventas - 6:58:36 PM -Producto no encontrado.

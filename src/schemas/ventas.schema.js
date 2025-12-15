@@ -3,8 +3,6 @@ import joi from "joi-oid";
 const ventaItemSchema = joi.object({
   productoId: joi.objectId().required(),
   cantidad: joi.number().positive().required(),
-  tipoVenta: joi.string().valid("pack", "unidad", "peso").required(),
-  precioUnitarioAplicado: joi.number().positive().required(),
 });
 
 const ventasSchema = joi.object({
@@ -13,8 +11,6 @@ const ventasSchema = joi.object({
     .string()
     .valid("efectivo", "debito", "credito", "mp", "transferencia", "tarjeta")
     .default("efectivo"),
-
   fecha: joi.date().optional(),
 });
-
 export default ventasSchema;

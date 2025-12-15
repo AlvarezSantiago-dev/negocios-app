@@ -62,6 +62,7 @@ server.use(
     brotli: { enabled: true, zlib: {} },
   })
 );
+server.use("/tickets", express.static("tickets"));
 
 // --- Rutas ---
 server.use("/", indexRouter);

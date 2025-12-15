@@ -101,20 +101,13 @@ class VentasRepository {
     // ------------------------------
     // FECHA ARGENTINA
     // ------------------------------
-    const fechaAR = data.fecha
-      ? new Date(data.fecha)
-      : new Date(
-          new Date().toLocaleString("en-US", {
-            timeZone: "America/Argentina/Buenos_Aires",
-          })
-        );
 
     const ventaDTO = new VentaDTO({
       items: procesados,
       metodoPago: data.metodoPago || "efectivo",
       totalVenta,
       gananciaTotal,
-      fecha: fechaAR,
+      fecha: new Date(),
     });
 
     return await this.model.create(ventaDTO);

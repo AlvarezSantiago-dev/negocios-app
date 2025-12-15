@@ -36,7 +36,21 @@ class VentasService extends Service {
       );
     }
 
-    // 3) Devolver la venta creada
+    // 3) Generar ticket (no rompe la venta si falla)
+    try {
+      const { default: ticketService } = await import(
+        "../services/ticket.service.js"
+      );
+
+      const ticketUrl = ticketService.generarTicketVenta(venta);
+
+      venta.ticketUrl = ticketUrl;
+      await venta.save();
+    } catch (err) {
+      console.error("Error generando ticket:", err.message);
+    }
+
+    // 4) Devolver la venta creada
     return venta;
   };
 

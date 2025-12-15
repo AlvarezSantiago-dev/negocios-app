@@ -23,6 +23,7 @@ const schema = new Schema(
     totalVenta: { type: Number, required: true },
     gananciaTotal: { type: Number, required: true },
     fecha: { type: Date, default: Date.now },
+    ticketUrl: { type: String },
   },
   { timestamps: true }
 );

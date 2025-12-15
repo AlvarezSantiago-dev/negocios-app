@@ -10,21 +10,23 @@ class TicketService {
     const fileName = `venta_${venta._id}.pdf`;
     const filePath = path.join(dir, fileName);
 
-    // 80mm ≈ 226pt, altura dinámica
     const doc = new PDFDocument({
-      size: [226, 1000], // altura grande, se adapta automáticamente
+      autoFirstPage: false,
       margins: { top: 10, left: 10, right: 10, bottom: 10 },
     });
 
     doc.pipe(fs.createWriteStream(filePath));
 
-    // ---------------- HEADER ----------------
+    // Crear página inicial (80mm)
+    doc.addPage({ size: [226, 600] });
+
+    // ================= HEADER =================
     doc.fontSize(13).text("NEGOCIO X", { align: "center" });
     doc.moveDown(0.2);
     doc.fontSize(9).text("Venta al público", { align: "center" });
 
     doc.moveDown(0.4);
-    doc.moveTo(10, doc.y).lineTo(216, doc.y).stroke();
+    this.linea(doc);
 
     const fecha = new Date(venta.fecha).toLocaleString("es-AR", {
       timeZone: "America/Argentina/Buenos_Aires",
@@ -35,41 +37,40 @@ class TicketService {
     doc.text(`Pago: ${venta.metodoPago}`);
 
     doc.moveDown(0.4);
-    doc.moveTo(10, doc.y).lineTo(216, doc.y).stroke();
+    this.linea(doc);
 
-    // ---------------- ITEMS ----------------
-    const startX = 10;
-    const colNombre = startX;
-    const colDetalle = 130;
-    const colSubtotal = 180;
+    // ================= ITEMS =================
+    const colNombre = 10;
+    const colDetalle = 120;
+    const colSubtotal = 170;
 
     venta.items.forEach((i) => {
       const nombre = i.nombre || i.productoId?.nombre || "Producto";
 
-      doc
-        .fontSize(9)
-        .text(nombre, colNombre, doc.y, { width: colDetalle - colNombre });
+      doc.fontSize(9).text(nombre, colNombre, doc.y, {
+        width: colDetalle - colNombre,
+      });
 
-      const detalle = `${i.cantidad} x $${i.precioVenta.toLocaleString(
-        "es-AR"
-      )}`;
       doc
         .fontSize(8)
-        .text(detalle, colDetalle, doc.y, { width: colSubtotal - colDetalle });
+        .text(
+          `${i.cantidad} x $${i.precioVenta.toLocaleString("es-AR")}`,
+          colDetalle,
+          doc.y
+        );
 
-      const subtotal = `$${i.subtotal.toLocaleString("es-AR")}`;
       doc
         .fontSize(8)
-        .text(subtotal, colSubtotal, doc.y, {
-          width: 226 - colSubtotal,
+        .text(`$${i.subtotal.toLocaleString("es-AR")}`, colSubtotal, doc.y, {
           align: "right",
         });
 
       doc.moveDown(0.4);
     });
 
-    // ---------------- TOTAL ----------------
-    doc.moveTo(10, doc.y).lineTo(216, doc.y).stroke();
+    // ================= TOTAL =================
+    this.linea(doc);
+
     doc.moveDown(0.2);
     doc
       .fontSize(11)
@@ -77,18 +78,26 @@ class TicketService {
         `TOTAL: $${venta.totalVenta.toLocaleString("es-AR")}`,
         colSubtotal,
         doc.y,
-        { width: 226 - colSubtotal, align: "right" }
+        { align: "right" }
       );
 
-    // ---------------- FOOTER ----------------
-    doc.moveDown(0.6);
+    // ================= FOOTER =================
+    doc.moveDown(0.8);
     doc.fontSize(8).text("Gracias por su compra", { align: "center" });
     doc.moveDown(0.2);
     doc.text("Conserve este ticket", { align: "center" });
 
+    // 🔴 AJUSTE FINAL DE ALTURA (CLAVE)
+    const finalY = doc.y + 20;
+    doc._pages[0].mediaBox = [0, 0, 226, finalY];
+
     doc.end();
 
     return `/tickets/${fileName}`;
+  }
+
+  linea(doc) {
+    doc.moveTo(10, doc.y).lineTo(216, doc.y).stroke();
   }
 }
 

@@ -56,17 +56,15 @@ class VentasService extends Service {
   };
 
   async ventasDiariasService(fecha) {
-    // fecha viene como "YYYY-MM-DD"
+    if (!fecha) throw new Error("Fecha requerida");
+
     const fechaStr = String(fecha).substring(0, 10);
 
-    // Argentina UTC-3
-    const inicioDiaUTC = new Date(`${fechaStr}T03:00:00.000Z`);
-    const finDiaUTC = new Date(`${fechaStr}T26:59:59.999Z`);
+    // Inicio del día en Argentina (UTC-3)
+    const inicioAR = new Date(`${fechaStr}T00:00:00-03:00`);
+    const finAR = new Date(`${fechaStr}T23:59:59.999-03:00`);
 
-    const ventas = await ventasRepository.ventasDiarias(
-      inicioDiaUTC,
-      finDiaUTC
-    );
+    const ventas = await ventasRepository.ventasDiarias(inicioAR, finAR);
 
     const totalVendido = ventas.reduce(
       (acc, v) => acc + Number(v.totalVenta || 0),

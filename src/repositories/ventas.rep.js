@@ -1,7 +1,7 @@
 // src/repositories/ventas.rep.js
 import dao from "../data/dao.factory.js";
 import VentaDTO from "../dto/ventas.dto.js";
-import { fechaCompletaArg } from "../utils/fecha.js";
+import rangoDiaUTC from "../utils/rangoDiaUtc.js";
 
 const { ventas, products: productos } = dao; // products viene de dao.factory.js
 
@@ -137,58 +137,29 @@ class VentasRepository {
 
   // 📌 Ventas del mes
   ventasMensuales = async (year, month) => {
-    // month: 1..12
-    const inicioAR = new Date(
-      `${year}-${String(month).padStart(2, "0")}-01T00:00:00-03:00`
-    );
-
-    const ultimoDia = new Date(year, month, 0).getDate();
-    const finAR = new Date(
-      `${year}-${String(month).padStart(
-        2,
-        "0"
-      )}-${ultimoDia}T23:59:59.999-03:00`
-    );
+    const inicioUTC = new Date(Date.UTC(year, month - 1, 1, 3, 0, 0, 0));
+    const finUTC = new Date(Date.UTC(year, month, 1, 2, 59, 59, 999));
 
     return await this.model.Model.find({
-      fecha: { $gte: inicioAR, $lte: finAR },
+      fecha: { $gte: inicioUTC, $lte: finUTC },
     }).lean();
   };
 
   // 📌 Ganancias: día o mes depende de filtros
   ganancias = async ({ year, month, day }) => {
-    let inicioAR, finAR;
+    let inicioUTC, finUTC;
 
     if (day) {
-      inicioAR = new Date(
-        `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(
-          2,
-          "0"
-        )}T00:00:00-03:00`
-      );
-      finAR = new Date(
-        `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(
-          2,
-          "0"
-        )}T23:59:59.999-03:00`
-      );
+      ({ inicio: inicioUTC, fin: finUTC } = rangoDiaUTC(year, month, day));
     } else {
-      inicioAR = new Date(
-        `${year}-${String(month).padStart(2, "0")}-01T00:00:00-03:00`
-      );
-      const ultimoDia = new Date(year, month, 0).getDate();
-      finAR = new Date(
-        `${year}-${String(month).padStart(2, "0")}-${String(ultimoDia).padStart(
-          2,
-          "0"
-        )}T23:59:59.999-03:00`
-      );
+      // mes completo
+      const inicioMes = new Date(Date.UTC(year, month - 1, 1, 3, 0, 0, 0));
+      const finMes = new Date(Date.UTC(year, month, 1, 2, 59, 59, 999));
+      inicioUTC = inicioMes;
+      finUTC = finMes;
     }
-    // Retornar agregación con totales
-    const inicioUTC = inicioAR;
-    const finUTC = finAR;
 
-    const agg = await this.model.Model.aggregate([
+    return await this.model.Model.aggregate([
       { $match: { fecha: { $gte: inicioUTC, $lte: finUTC } } },
       {
         $group: {
@@ -199,31 +170,31 @@ class VentasRepository {
         },
       },
     ]);
-
-    return agg; // array (puede estar vacío) -> controller toma agg[0] || {}
   };
 
   // ventas.repository.js
   ultimos7Dias = async () => {
     const hoy = new Date();
-    const hace7 = new Date();
-    hace7.setDate(hoy.getDate() - 6); // incluye hoy
 
-    const inicio = new Date(
-      hace7.toLocaleString("en-US", {
-        timeZone: "America/Argentina/Buenos_Aires",
-      })
+    // hoy AR
+    const year = hoy.getUTCFullYear();
+    const month = hoy.getUTCMonth() + 1;
+    const day = hoy.getUTCDate();
+
+    const { inicio: inicioHoyUTC, fin: finHoyUTC } = rangoDiaUTC(
+      year,
+      month,
+      day
     );
-    const fin = new Date(
-      hoy.toLocaleString("en-US", {
-        timeZone: "America/Argentina/Buenos_Aires",
-      })
-    );
+
+    const inicio = new Date(inicioHoyUTC);
+    inicio.setUTCDate(inicio.getUTCDate() - 6);
 
     return await this.model.Model.find({
-      fecha: { $gte: inicio, $lte: fin },
+      fecha: { $gte: inicio, $lte: finHoyUTC },
     }).lean();
   };
+
   readRepository = async () => {
     try {
       return await this.model.read();

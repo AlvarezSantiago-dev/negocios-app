@@ -119,7 +119,7 @@ class VentasRepository {
       metodoPago: data.metodoPago || "efectivo",
       totalVenta,
       gananciaTotal,
-      fecha: data.fecha || new Date(),
+      fecha: data.fecha ?? new Date(),
     });
 
     return await this.model.create(ventaDTO);

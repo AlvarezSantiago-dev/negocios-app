@@ -11,21 +11,17 @@ class TicketService {
     const filePath = path.join(dir, fileName);
 
     const doc = new PDFDocument({
-      autoFirstPage: false,
+      size: [226, 1000], // página alta
       margins: { top: 10, left: 10, right: 10, bottom: 10 },
     });
 
     doc.pipe(fs.createWriteStream(filePath));
-
-    // Crear página inicial (80mm)
-    doc.addPage({ size: [226, 600] });
 
     // ================= HEADER =================
     doc.fontSize(13).text("NEGOCIO X", { align: "center" });
     doc.moveDown(0.2);
     doc.fontSize(9).text("Venta al público", { align: "center" });
 
-    doc.moveDown(0.4);
     this.linea(doc);
 
     const fecha = new Date(venta.fecha).toLocaleString("es-AR", {
@@ -36,7 +32,6 @@ class TicketService {
     doc.fontSize(8).text(`Fecha: ${fecha}`);
     doc.text(`Pago: ${venta.metodoPago}`);
 
-    doc.moveDown(0.4);
     this.linea(doc);
 
     // ================= ITEMS =================
@@ -87,17 +82,15 @@ class TicketService {
     doc.moveDown(0.2);
     doc.text("Conserve este ticket", { align: "center" });
 
-    // 🔴 AJUSTE FINAL DE ALTURA (CLAVE)
-    const finalY = doc.y + 20;
-    doc._pages[0].mediaBox = [0, 0, 226, finalY];
-
     doc.end();
 
     return `/tickets/${fileName}`;
   }
 
   linea(doc) {
+    doc.moveDown(0.4);
     doc.moveTo(10, doc.y).lineTo(216, doc.y).stroke();
+    doc.moveDown(0.4);
   }
 }
 

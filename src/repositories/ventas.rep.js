@@ -69,7 +69,19 @@ class VentasRepository {
       // ------------------------------
       // DESCONTAR STOCK
       // ------------------------------
-      if (producto.tipo !== "peso") {
+      if (producto.tipo === "peso") {
+        const nuevoStock = Number((producto.stock - cantidad).toFixed(3));
+
+        if (nuevoStock < 0) {
+          throw new Error(
+            `Stock insuficiente para ${producto.nombre}. Disponible: ${producto.stock}`
+          );
+        }
+
+        await productos.update(producto._id, {
+          stock: nuevoStock,
+        });
+      } else {
         await productos.update(producto._id, {
           stock: producto.stock - cantidad,
         });

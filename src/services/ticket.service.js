@@ -11,13 +11,13 @@ class TicketService {
     const filePath = path.join(dir, fileName);
 
     const doc = new PDFDocument({
-      size: [226, 1000], // página alta
+      size: [226, 1000], // 80mm, alto dinámico
       margins: { top: 10, left: 10, right: 10, bottom: 10 },
     });
 
     doc.pipe(fs.createWriteStream(filePath));
 
-    // ================= HEADER =================
+    /* ================= HEADER ================= */
     doc.fontSize(13).text("NEGOCIO X", { align: "center" });
     doc.moveDown(0.2);
     doc.fontSize(9).text("Venta al público", { align: "center" });
@@ -34,25 +34,29 @@ class TicketService {
 
     this.linea(doc);
 
-    // ================= ITEMS =================
+    /* ================= ITEMS ================= */
     const colNombre = 10;
     const colDetalle = 120;
     const colSubtotal = 170;
 
     venta.items.forEach((i) => {
-      const nombre = i.nombre || i.productoId?.nombre || "Producto";
+      const producto = i.productoId || {};
+      const nombre = producto.nombre || "Producto";
+      const esPeso = producto.tipo === "peso";
 
       doc.fontSize(9).text(nombre, colNombre, doc.y, {
         width: colDetalle - colNombre,
       });
 
-      doc
-        .fontSize(8)
-        .text(
-          `${i.cantidad} x $${i.precioVenta.toLocaleString("es-AR")}`,
-          colDetalle,
-          doc.y
-        );
+      const cantidadTxt = esPeso
+        ? `${Number(i.cantidad).toFixed(3)} kg`
+        : `${i.cantidad}`;
+
+      const detalle = `${cantidadTxt} x $${i.precioVenta.toLocaleString(
+        "es-AR"
+      )}`;
+
+      doc.fontSize(8).text(detalle, colDetalle, doc.y);
 
       doc
         .fontSize(8)
@@ -63,10 +67,9 @@ class TicketService {
       doc.moveDown(0.4);
     });
 
-    // ================= TOTAL =================
+    /* ================= TOTAL ================= */
     this.linea(doc);
 
-    doc.moveDown(0.2);
     doc
       .fontSize(11)
       .text(
@@ -76,7 +79,7 @@ class TicketService {
         { align: "right" }
       );
 
-    // ================= FOOTER =================
+    /* ================= FOOTER ================= */
     doc.moveDown(0.8);
     doc.fontSize(8).text("Gracias por su compra", { align: "center" });
     doc.moveDown(0.2);

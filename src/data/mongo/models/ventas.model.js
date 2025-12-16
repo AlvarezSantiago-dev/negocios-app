@@ -22,7 +22,11 @@ const schema = new Schema(
     metodoPago: { type: String, default: "efectivo" },
     totalVenta: { type: Number, required: true },
     gananciaTotal: { type: Number, required: true },
-    fecha: { type: Date },
+    fecha: {
+      type: Date,
+      default: Date.now,
+      index: true,
+    },
     ticketUrl: { type: String },
   },
   { timestamps: true }

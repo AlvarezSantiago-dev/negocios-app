@@ -56,15 +56,18 @@ class VentasService extends Service {
   };
 
   async ventasDiariasService(fecha) {
-    const fechaLimpia =
-      fecha instanceof Date
-        ? fecha.toISOString().substring(0, 10)
-        : String(fecha).substring(0, 10);
+    // fecha viene como "YYYY-MM-DD"
+    const fechaStr = String(fecha).substring(0, 10);
 
-    // Trae ventas de ese día
-    const ventas = await ventasRepository.ventasDiarias(fechaLimpia);
+    // Argentina UTC-3
+    const inicioDiaUTC = new Date(`${fechaStr}T03:00:00.000Z`);
+    const finDiaUTC = new Date(`${fechaStr}T26:59:59.999Z`);
 
-    // Totales
+    const ventas = await ventasRepository.ventasDiarias(
+      inicioDiaUTC,
+      finDiaUTC
+    );
+
     const totalVendido = ventas.reduce(
       (acc, v) => acc + Number(v.totalVenta || 0),
       0
@@ -76,7 +79,7 @@ class VentasService extends Service {
     );
 
     return {
-      fecha: fechaLimpia,
+      fecha: fechaStr,
       ventas,
       totalVendido,
       gananciaTotal,

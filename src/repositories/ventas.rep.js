@@ -126,16 +126,14 @@ class VentasRepository {
   };
 
   // 📌 Ventas del día
-  ventasDiarias = async (fechaISO) => {
-    // fechaISO: 'YYYY-MM-DD'
-    const inicioAR = new Date(`${fechaISO}T00:00:00-03:00`);
-    const finAR = new Date(`${fechaISO}T23:59:59.999-03:00`);
-
-    // Devolver objetos simples con .lean()
+  async ventasDiarias(fechaInicio, fechaFin) {
     return await this.model.Model.find({
-      fecha: { $gte: inicioAR, $lte: finAR },
-    }).lean();
-  };
+      fecha: {
+        $gte: fechaInicio,
+        $lte: fechaFin,
+      },
+    }).sort({ fecha: 1 });
+  }
 
   // 📌 Ventas del mes
   ventasMensuales = async (year, month) => {

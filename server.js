@@ -18,14 +18,18 @@ const server = express();
 const port = process.env.PORT || environment.PORT || 8080; // Render asigna process.env.PORT
 
 const ready = () => console.log("Server ready on port " + port);
+//activar cluster q lo borre...
 
 // --- Cluster desactivado para Render Free Tier ---
 server.listen(port, ready);
 
 // --- Motor de vistas ---
 server.engine("handlebars", engine());
+
 server.set("view engine", "handlebars");
+
 server.set("views", __dirname + "/src/views");
+
 server.use(express.static(path.join(__dirname, "public")));
 
 // --- Middlewares ---
